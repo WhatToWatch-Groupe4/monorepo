@@ -29,33 +29,33 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn workspace api run start
 
 # watch mode
-$ npm run start:dev
+$ yarn workspace api run start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn workspace api run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn workspace api run test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn workspace api run test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn workspace api run test:cov
 ```
 
 ## Support
