@@ -1,0 +1,13 @@
+**/node_modules
+**/README.md
+**/.git
+**/.gitignore
+**/LICENSE
+**/VERSION
+**/README.md
+**/.DS_Store
+**/.github
+**/.idea
+**/.vscode
+**/.dockerignore
+**/Dockerfile
