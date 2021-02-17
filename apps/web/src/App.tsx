@@ -4,6 +4,8 @@ import './App.css';
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import keycloak from './keycloak'
 import Login from './components/Login';
+import SideMenu from "./components/SideMenu";
+import TopMenu from "./components/TopMenu";
 
 const eventLogger = (event: unknown, error: unknown) => {
   console.log('onKeycloakEvent', event, error)
@@ -12,8 +14,6 @@ const eventLogger = (event: unknown, error: unknown) => {
 const tokenLogger = (tokens: unknown) => {
   console.log('onKeycloakTokens', tokens)
 }
-import SideMenu from "./components/SideMenu";
-import TopMenu from "./components/TopMenu";
 
 function App() {
   return (
