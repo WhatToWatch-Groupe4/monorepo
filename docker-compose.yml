@@ -1,10 +1,13 @@
 version: "3.9"
 services:
   api:
-    build: /apps/api/
+    build: "./apps/api/"
   web:
-    build: /apps/web/
+    build: "./apps/web/"
   db:
     image: postgres:13-alpine
     ports: 
       - "5432:5432"
+    env_file: .env
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
