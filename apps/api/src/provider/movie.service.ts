@@ -4,11 +4,8 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MovieService {
-  private readonly api;
+  public readonly api;
   constructor(config: ConfigService) {
     this.api = new MovieDb(config.get<string>('MOVIE_API_KEY'));
-  }
-  authMovieApi() {
-    return this.api;
   }
 }
