@@ -18,6 +18,9 @@ function App() {
         >
           Learn React
         </a>
+        <div className="text-xl font-semibold text-gray-500">
+          test tailwind
+        </div>
       </header>
     </div>
   );
