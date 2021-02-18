@@ -1,4 +1,4 @@
-export class WishListDto {
-  userId: string;
-  movieId: number;
+export class WishListDto{
+    userId: string;
+    movieId: number;
 }
