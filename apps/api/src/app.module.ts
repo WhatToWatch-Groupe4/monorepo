@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
