@@ -15,10 +15,14 @@ export class WishListService {
     return await this.wishListRepository.save(wishListReceived);
   }
 
-  async deleteWishList(user_id: string, movieId: number) {
+  async deleteWishList(user_id: string, movieId: number): Promise<void> {
     const wishListSelected = await this.wishListRepository.count({ idMovie: movieId, idUser: user_id });
     if (wishListSelected > 0) {
       await this.wishListRepository.remove(await this.wishListRepository.find({ idMovie: movieId, idUser: user_id }));
     }
+  }
+
+  async getWishList(user_id: string): Promise<WishList[]>{
+    return this.wishListRepository.find({idUser: user_id});
   }
 }
