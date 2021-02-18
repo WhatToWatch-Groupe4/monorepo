@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ViewsController } from './views/views.controller';
+import { ViewsService } from './views/views.service';
+import { ViewsModule } from './views/views.module';
 
 @Module({
   imports: [
@@ -21,6 +24,7 @@ import { AppService } from './app.service';
       }),
       inject: [ConfigService],
     }),
+    ViewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
