@@ -4,7 +4,6 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class MovieDbService {
-
   public readonly api: MovieDb;
 
   constructor(config: ConfigService) {
