@@ -1,7 +1,7 @@
 import { MovieService } from './movies.service';
 import { Controller, Get, InternalServerErrorException, NotFoundException, Param } from '@nestjs/common';
 import { AxiosError } from 'axios';
-import { MovieResponse, TrendingResponse} from 'moviedb-promise/dist/request-types';
+import { MovieResponse, TrendingResponse } from 'moviedb-promise/dist/request-types';
 
 @Controller('movies')
 export class MoviesController {
