@@ -7,5 +7,6 @@ import { Module } from '@nestjs/common';
   imports: [MoviesDbModule],
   controllers: [MoviesController],
   providers: [MovieService],
+  exports: [MovieService],
 })
 export class MoviesModule {}
