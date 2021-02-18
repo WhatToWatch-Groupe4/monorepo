@@ -2,8 +2,14 @@ version: "3.9"
 services:
   api:
     build: "./apps/api/"
+    environment:
+       - dbname=${DATABASE_NAME}
+       - dbuser=${DATABASE_USER}
+       - dbpassword=${DATABASE_PASSWORD}
+
   web:
     build: "./apps/web/"
+    
   db:
     image: postgres:13-alpine
     ports: 
@@ -11,3 +17,5 @@ services:
     env_file: .env
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME}
