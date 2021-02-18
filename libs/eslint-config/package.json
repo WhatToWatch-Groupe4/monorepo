@@ -1,0 +1,16 @@
+{
+    "name": "@wtw/eslint-config",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+      "lint": "eslint ."
+    },
+    "dependencies": {
+      "eslint": "^7.12.1",
+      "eslint-config-prettier": "7.2.0",
+      "eslint-plugin-prettier": "^3.1.4",
+      "prettier": "^2.1.2"
+    }
+  }

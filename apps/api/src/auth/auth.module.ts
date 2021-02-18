@@ -19,7 +19,7 @@ interface KeycloakJwtIssuer {
     JwtModule.registerAsync({
       imports: [],
       useFactory: async () => {
-        const issuer: KeycloakJwtIssuer = await fetch('https://accounts.agravelot.eu/auth/realms/wtw').then(res =>
+        const issuer: KeycloakJwtIssuer = await fetch('https://accounts.agravelot.eu/auth/realms/wtw').then((res) =>
           res.json(),
         );
 
