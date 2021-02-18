@@ -8,8 +8,7 @@ export class WishList {
   @PrimaryColumn()
   idUser: string;
 
-  constructor(idUser: string, idMovie:number)
-  {
+  constructor(idUser: string, idMovie: number) {
     this.idUser = idUser;
     this.idMovie = idMovie;
   }

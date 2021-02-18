@@ -7,20 +7,18 @@ import { WishList } from './wishlist.entity';
 export class WishListService {
   constructor(
     @InjectRepository(WishList)
-    private wishListRepository: Repository<WishList>
+    private wishListRepository: Repository<WishList>,
   ) {}
 
-  async insertWishList(user_id: string, movieId: number): Promise<WishList>{
+  async insertWishList(user_id: string, movieId: number): Promise<WishList> {
     const wishListReceived = new WishList(user_id, movieId);
     return await this.wishListRepository.save(wishListReceived);
   }
 
-  async deleteWishList(user_id: string, movieId: number)
-  {
-    const wishListSelected = await this.wishListRepository.count({idMovie: movieId, idUser: user_id});
-    if(wishListSelected > 0)
-    {
-      await this.wishListRepository.remove(await this.wishListRepository.find({idMovie: movieId, idUser: user_id}))
+  async deleteWishList(user_id: string, movieId: number) {
+    const wishListSelected = await this.wishListRepository.count({ idMovie: movieId, idUser: user_id });
+    if (wishListSelected > 0) {
+      await this.wishListRepository.remove(await this.wishListRepository.find({ idMovie: movieId, idUser: user_id }));
     }
   }
 }
