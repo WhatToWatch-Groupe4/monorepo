@@ -9,5 +9,5 @@ export class View {
   movie: number;
 
   @Column()
-  uid: string;
+  user_uuid: string;
 }

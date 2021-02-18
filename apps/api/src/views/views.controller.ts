@@ -1,68 +1,32 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  InternalServerErrorException,
-  NotFoundException,
-  Param,
-  Post,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { ViewsService } from './views.service';
-import { AxiosError } from 'axios';
-import { Request } from 'express';
 import { View } from './views.entity';
 import { DeleteResult } from 'typeorm';
+import { ViewDto } from './view.dto';
 
 @Controller('views')
 export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
-  @Get(':uid')
-  async findAll(@Param('uid') uid: string): Promise<View[]> {
-    try {
-      return await this.viewsService.findAll(uid);
-    } catch (e) {
-      this.getAxiosError(e);
-    }
+  // TODO Query user_uuid à supprimer et à récupérer depuis l'api
+  @Get()
+  async findAll(@Query('user_uuid') user_uuid: string): Promise<View[]> {
+    return await this.viewsService.findAll(user_uuid);
   }
 
-  @Get()
-  async findOne(@Req() req: Request): Promise<boolean> {
-    try {
-      const uid = req.body.uid;
-      const movie = req.body.movie;
-      return !!(await this.viewsService.findOne(uid, movie));
-    } catch (e) {
-      this.getAxiosError(e);
-    }
+  // TODO Param ser_uuid à supprimer et à récupérer depuis l'api
+  @Get(':movie/:user_uuid')
+  async findOne(@Param('user_uuid') user_uuid: string, @Param('movie') movie: number): Promise<View> {
+    return await this.viewsService.findOne(user_uuid, movie);
   }
 
   @Post()
-  async create(@Req() req: Request): Promise<View> {
-    try {
-      const uid = req.body.uid;
-      const movie = req.body.movie;
-      return await this.viewsService.create(uid, movie);
-    } catch (e) {
-      this.getAxiosError(e);
-    }
+  async create(@Body() viewDto: ViewDto): Promise<View> {
+    return await this.viewsService.create(viewDto.user_uuid, viewDto.movie);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<DeleteResult> {
-    try {
-      return await this.viewsService.delete(id);
-    } catch (e) {
-      this.getAxiosError(e);
-    }
-  }
-
-  getAxiosError(e: any): void {
-    const err = e as AxiosError;
-    if (err.response.status === 404) {
-      throw new NotFoundException(err.response.data.status_message);
-    }
-    throw new InternalServerErrorException(e);
+    return await this.viewsService.delete(id);
   }
 }

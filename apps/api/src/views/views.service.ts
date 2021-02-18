@@ -9,15 +9,15 @@ export class ViewsService {
     @InjectRepository(View)
     private viewRepository: Repository<View>,
   ) {}
-  findAll(uid: string): Promise<View[]> {
-    return this.viewRepository.find({ where: { uid } });
+  findAll(user_uuid: string): Promise<View[]> {
+    return this.viewRepository.find({ where: { user_uuid } });
   }
-  findOne(uid: string, movie: number): Promise<View> {
-    return this.viewRepository.findOne({ where: { uid, movie } });
+  findOne(user_uuid: string, movie: number): Promise<View> {
+    return this.viewRepository.findOne({ where: { user_uuid, movie } });
   }
-  create(uid: string, movie: number): Promise<View> {
+  create(user_uuid: string, movie: number): Promise<View> {
     const view = new View();
-    view.uid = uid;
+    view.user_uuid = user_uuid;
     view.movie = movie;
     return this.viewRepository.save(view);
   }
