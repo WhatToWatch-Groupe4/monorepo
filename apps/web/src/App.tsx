@@ -20,7 +20,7 @@ function App() {
     <ReactKeycloakProvider authClient={keycloak}  onEvent={eventLogger} onTokens={tokenLogger}>
       <div className="App">
         <SideMenu/>
-        <div className="Main-layout ml-32">
+        <div id="Main-layout" className="ml-32">
           <TopMenu/>
         </div>
       </div>
