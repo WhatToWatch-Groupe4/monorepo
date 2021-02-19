@@ -15,8 +15,8 @@ export class ViewsController {
   }
 
   // TODO Param ser_uuid à supprimer et à récupérer depuis l'api
-  @Get(':movie/:user_uuid')
-  async findOne(@Param('user_uuid') user_uuid: string, @Param('movie') movie: number): Promise<View> {
+  @Get(':movie')
+  async findOne(@Param('movie') movie: number, @Query('user_uuid') user_uuid: string): Promise<View> {
     return await this.viewsService.findOne(user_uuid, movie);
   }
 

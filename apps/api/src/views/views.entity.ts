@@ -1,13 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity()
+@Unique(['movie', 'user_uuid'])
 export class View {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'movie' })
   movie: number;
 
-  @Column()
+  @Column({ name: 'user_uuid' })
   user_uuid: string;
 }

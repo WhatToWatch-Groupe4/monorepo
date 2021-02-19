@@ -3,10 +3,13 @@ import binoculars from '../assets/icons/binoculars.png';
 import binocularsPrimary from '../assets/icons/binoculars-primary.png';
 import { useKeycloak } from '@react-keycloak/web';
 
-function ButtonView(props: any) {
+interface Props {
+  movie: number | undefined;
+}
+
+function ButtonView({ movie }: Props) {
   const [view, setView] = useState(0);
   const { keycloak } = useKeycloak();
-  const movie = props.movie;
 
   function toggleView(): void {
     if (view == 0) {
@@ -17,12 +20,10 @@ function ButtonView(props: any) {
   }
 
   const getView = async (): Promise<void> => {
-    if (keycloak.authenticated) {
-      await fetch(`http://localhost:3000/views/${movie}/${keycloak.tokenParsed?.sub}`)
-        .then((data) => data.json())
-        .then((res) => setView(res.id))
-        .catch(() => setView(0));
-    }
+    await fetch(`http://localhost:3000/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
+      .then((data) => data.json())
+      .then((res) => setView(res.id))
+      .catch(() => setView(0));
   };
 
   const addView = async (): Promise<void> => {
@@ -54,7 +55,9 @@ function ButtonView(props: any) {
   };
 
   useEffect(() => {
-    void getView();
+    if (keycloak.authenticated) {
+      void getView();
+    }
   });
 
   if (view == 0) {

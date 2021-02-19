@@ -16,10 +16,7 @@ export class ViewsService {
     return this.viewRepository.findOne({ where: { user_uuid, movie } });
   }
   create(user_uuid: string, movie: number): Promise<View> {
-    const view = new View();
-    view.user_uuid = user_uuid;
-    view.movie = movie;
-    return this.viewRepository.save(view);
+    return this.viewRepository.save({ user_uuid, movie });
   }
   delete(id: number): Promise<DeleteResult> {
     return this.viewRepository.delete(id);
