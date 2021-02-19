@@ -18,6 +18,10 @@ module.exports = {
       },
       minHeight: {
         '112': '112px'
+      },
+      borderColor: {
+        'primary': '#A71132',
+        'secondary': '#3C0C36',
       }
     },
   },
