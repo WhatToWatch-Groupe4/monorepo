@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 
 function MovieList() {
-  const [movies, setMovie] = useState<Array<MovieResponse> | null>(null);
+  const [movies, setMovie] = useState<Array<MovieResponse> | null>([]);
   useEffect(() => {
     const data = async (): Promise<void> => {
       const res = await fetch('http://localhost:3000/movies/').then((data) => data.json());
