@@ -20,7 +20,7 @@ function Login() {
   return (
     <div>
       <a
-        className="App-link border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+        className="App-link border border-primary bg-primary text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline"
         href={keycloak.createLoginUrl()}
       >
         Sign In
