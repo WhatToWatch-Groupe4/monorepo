@@ -38,7 +38,7 @@ function MovieShow() {
       <p className="text-gray-400">{movie.overview}</p>
       <ButtonView movie={movie.id} />
       <Comments movieId={+id} />
-      <WishButton />
+      <WishButton movieId={movie.id} />
     </div>
   );
 }

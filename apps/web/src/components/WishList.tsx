@@ -1,3 +1,4 @@
+import { useKeycloak } from '@react-keycloak/web';
 import { useEffect, useState } from 'react';
 
 interface Wish {
@@ -5,10 +6,13 @@ interface Wish {
   movieId: number;
 }
 
-function WishButton() {
+interface Props {
+  movieId: number | undefined;
+}
+
+function WishButton({ movieId }: Props) {
   const [wish, setWish] = useState<Wish | null>(null);
-  const id = 664767;
-  const user_id = '22C32';
+  const { keycloak } = useKeycloak();
 
   function switchWish(): void {
     if (!wish) {
@@ -18,7 +22,7 @@ function WishButton() {
     }
   }
   const checkWishList = async () => {
-    await fetch(`http://localhost:3000/wishlist/${user_id}/${id}`)
+    await fetch(`http://localhost:3000/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`)
       .then((data) => data.json())
       .then((res) => {
         setWish(res.idMovie);
@@ -31,7 +35,7 @@ function WishButton() {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'POST',
       headers: new Headers({ 'content-type': 'application/json' }),
-      body: JSON.stringify({ userId: user_id, movieId: id }),
+      body: JSON.stringify({ userId: keycloak.tokenParsed?.sub, movieId: movieId }),
     })
       .then((data) => data.json())
       .then((res) => {
@@ -43,13 +47,15 @@ function WishButton() {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'DELETE',
       headers: new Headers({ 'content-type': 'application/json' }),
-      body: JSON.stringify({ userId: user_id, movieId: id }),
+      body: JSON.stringify({ userId: keycloak.tokenParsed?.sub, movieId: movieId }),
     });
     setWish(null);
   };
 
   useEffect(() => {
-    void checkWishList();
+    if (keycloak.authenticated) {
+      void checkWishList();
+    }
   });
 
   if (!wish) {
