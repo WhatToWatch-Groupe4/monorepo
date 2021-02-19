@@ -20,7 +20,12 @@ module.exports = {
     },
     minHeight: {
       '112': '112px'
-    }
+    },
+    borderColor: theme => ({
+      ...theme('colors'),
+      'primary': '#A71132',
+      'secondary': '#3C0C36',
+    })
   },
   variants: {
     extend: {},

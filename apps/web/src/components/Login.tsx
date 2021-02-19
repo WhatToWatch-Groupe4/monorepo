@@ -1,30 +1,26 @@
-import { useKeycloak } from "@react-keycloak/web";
+import { useKeycloak } from '@react-keycloak/web';
 
 function Login() {
   const { keycloak, initialized } = useKeycloak();
 
-  if (initialized === false) {
-      return null;
+  if (!initialized) {
+    return null;
   }
 
   if (keycloak.authenticated) {
-      console.log({ user: keycloak.tokenParsed });
-      
-      return (<a
-        className="App-link"
-        href={keycloak.createLogoutUrl()}
-      >
-        Logout
-      </a>)
-  }
-   
+    console.log({ user: keycloak.tokenParsed });
+
     return (
-      <a
-        className="App-link"
-        href={keycloak.createLoginUrl()}
-      >
-        Login
+      <a className="App-link" href={keycloak.createLogoutUrl()}>
+        Logout
       </a>
     );
   }
-  export default Login;
+
+  return (
+    <a className="App-link" href={keycloak.createLoginUrl()}>
+      Login
+    </a>
+  );
+}
+export default Login;
