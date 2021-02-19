@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { useParams } from 'react-router-dom';
 import ButtonView from './ButtonView';
+import Comments from './Comments';
 
 function MovieShow() {
   const { id } = useParams<{ id: string | undefined }>();
@@ -16,7 +17,7 @@ function MovieShow() {
     void fetchData();
   }, []);
 
-  if (movie === null) return null;
+  if (id === undefined || movie === null) return null;
 
   console.log(movie);
 
@@ -35,6 +36,7 @@ function MovieShow() {
       <h2 className="font-medium text-2xl mt-10 mb-8">Synopsis</h2>
       <p className="text-gray-400">{movie.overview}</p>
       <ButtonView movie={movie.id} />
+      <Comments movieId={+id} />
     </div>
   );
 }
