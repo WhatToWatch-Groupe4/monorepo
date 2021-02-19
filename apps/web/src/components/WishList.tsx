@@ -7,7 +7,7 @@ interface Wish {
 }
 
 interface Props {
-  movieId: number | undefined;
+  movieId: number;
 }
 
 function WishButton({ movieId }: Props) {
@@ -33,7 +33,7 @@ function WishButton({ movieId }: Props) {
   const addToWishList = async () => {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'POST',
-      headers: new Headers({ 'content-type': 'application/json' }),
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ userId: keycloak.tokenParsed?.sub, movieId: movieId }),
     })
       .then((data) => data.json())
@@ -45,7 +45,7 @@ function WishButton({ movieId }: Props) {
   const removeToWishList = async () => {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'DELETE',
-      headers: new Headers({ 'content-type': 'application/json' }),
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ userId: keycloak.tokenParsed?.sub, movieId: movieId }),
     });
     setWish(null);

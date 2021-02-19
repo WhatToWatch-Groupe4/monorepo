@@ -4,7 +4,7 @@ import binocularsPrimary from '../assets/icons/binoculars-primary.png';
 import { useKeycloak } from '@react-keycloak/web';
 
 interface Props {
-  movie: number | undefined;
+  movie: number;
 }
 
 function ButtonView({ movie }: Props) {
