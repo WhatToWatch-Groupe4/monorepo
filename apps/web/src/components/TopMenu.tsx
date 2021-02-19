@@ -2,16 +2,9 @@ import user from '../assets/user.jpg';
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import Login from './Login';
-import { KeycloakResourceAccess, KeycloakRoles } from 'keycloak-js';
+import { KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js';
 
-interface TokenParsed {
-  exp?: number;
-  iat?: number;
-  nonce?: string;
-  sub?: string;
-  session_state?: string;
-  realm_access?: KeycloakRoles;
-  resource_access?: KeycloakResourceAccess;
+interface TokenParsed extends KeycloakTokenParsed {
   preferred_username: string;
 }
 
