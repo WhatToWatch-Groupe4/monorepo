@@ -27,7 +27,7 @@ function TopMenu() {
     );
   }
 
-  return <div className="w-full bg-black-13 fixed flex justify-between relative align-center min-h-112"></div>;
+  return <div className="w-full bg-black-13 fixed flex justify-between relative align-center min-h-112" />;
 }
 
 export default TopMenu;
