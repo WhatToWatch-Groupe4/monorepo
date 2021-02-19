@@ -9,6 +9,9 @@ export class Comment {
   message: string;
 
   @Column()
+  movieId: number;
+
+  @Column()
   userUUID: string;
 
   @Column()

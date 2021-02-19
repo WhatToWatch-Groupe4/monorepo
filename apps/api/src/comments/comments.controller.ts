@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from './entities/comment.entity';
 
@@ -12,8 +12,8 @@ export class CommentsController {
   // }
 
   @Get()
-  async findAll(): Promise<Comment[]> {
-    return await this.commentsService.findAll();
+  async findAll(@Query() query: { movie_id: number }): Promise<Comment[]> {
+    return await this.commentsService.findAll(query.movie_id);
   }
 
   // @Get(':id')

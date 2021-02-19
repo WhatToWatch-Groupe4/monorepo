@@ -13,8 +13,8 @@ export class CommentsService {
     return 'This action adds a new comment';
   }
 
-  findAll(): Promise<Comment[]> {
-    return this.commentRepository.find();
+  findAll(movieId: number): Promise<Comment[]> {
+    return this.commentRepository.find({ movieId });
   }
 
   findOne(id: number) {
