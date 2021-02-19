@@ -15,7 +15,7 @@ export class WishListService {
     return await this.wishListRepository.save(wishListReceived);
   }
 
-  async checkWish(user_id: string, movieId: number): Promise<WishList>{
+  async checkWish(user_id: string, movieId: number): Promise<WishList> {
     return await this.wishListRepository.findOneOrFail({ idMovie: movieId, idUser: user_id });
   }
 
