@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ViewsModule } from './views/views.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ViewsModule } from './views/views.module';
     }),
     MoviesModule,
     ViewsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
