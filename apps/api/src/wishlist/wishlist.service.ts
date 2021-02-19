@@ -11,8 +11,7 @@ export class WishListService {
   ) {}
 
   async insertWishList(userId: string, movieId: number): Promise<WishList> {
-    const wishListReceived = { idUser: userId, movieId };
-    return await this.wishListRepository.save(wishListReceived);
+    return await this.wishListRepository.save({ idUser: userId, movieId });
   }
 
   async checkWish(userId: string, movieId: number): Promise<WishList | undefined> {
