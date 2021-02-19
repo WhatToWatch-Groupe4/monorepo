@@ -8,8 +8,6 @@ function Login() {
   }
 
   if (keycloak.authenticated) {
-    console.log({ user: keycloak.tokenParsed });
-
     return (
       <a className="App-link" href={keycloak.createLogoutUrl()}>
         Logout
