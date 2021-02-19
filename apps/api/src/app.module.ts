@@ -1,3 +1,4 @@
+import { MoviesModule } from './movies/movies.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -21,6 +22,7 @@ import { AppService } from './app.service';
       }),
       inject: [ConfigService],
     }),
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
