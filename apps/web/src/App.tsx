@@ -7,6 +7,8 @@ import TopMenu from './components/TopMenu';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import MovieShow from './components/MovieShow';
+import ViewList from './components/ViewList';
+import WishList from './components/WishList';
 const eventLogger = (event: unknown, error: unknown) => {
   console.log('onKeycloakEvent', event, error);
 };
@@ -28,6 +30,12 @@ function App() {
             <Switch>
               <Route path="/movies/:id">
                 <MovieShow />
+              </Route>
+              <Route path="/viewlist">
+                <ViewList />
+              </Route>
+              <Route path="/wishlist">
+                <WishList />
               </Route>
               <Route path="/">
                 <MovieList />
