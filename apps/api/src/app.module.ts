@@ -1,4 +1,5 @@
 import { MoviesModule } from './movies/movies.module';
+import { WishListModule } from './wishlist/wishlist.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -27,6 +28,7 @@ import { CommentsModule } from './comments/comments.module';
     MoviesModule,
     ViewsModule,
     CommentsModule,
+    WishListModule,
   ],
   controllers: [AppController],
   providers: [AppService],
