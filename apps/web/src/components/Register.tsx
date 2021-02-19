@@ -8,8 +8,6 @@ function Register() {
   }
 
   if (keycloak.authenticated) {
-    console.log({ user: keycloak.tokenParsed });
-
     return null;
   }
 

@@ -20,8 +20,6 @@ function MovieShow() {
 
   if (id === undefined || movie === null) return null;
 
-  console.log(movie);
-
   return (
     <div className="text-white w-1/3">
       <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={movie.title} />
