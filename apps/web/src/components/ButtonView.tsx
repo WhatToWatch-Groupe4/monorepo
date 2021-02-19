@@ -63,8 +63,9 @@ function ButtonView({ movie }: Props) {
   if (!view) {
     return (
       <button
-        className="border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
+        className="border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none disabled:opacity-50"
         onClick={toggleView}
+        disabled={!keycloak.authenticated}
       >
         <img src={binocularsPrimary} alt="logo" className="px-24 py-4 inline w-11/12" />
       </button>
