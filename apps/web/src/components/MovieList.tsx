@@ -14,7 +14,7 @@ function MovieList() {
   console.log(movies);
   return (
     <div className="container mx-auto">
-      <h1 className="text-4xl text-white uppercase font-bold mb-4">TOUS LES FILMS / SÉRIES</h1>
+      <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES</h1>
       <div className="grid md:grid-flow-col grid-cols-5 grid-rows-5 gap-5">
         {movies.map((movie) => (
           <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
@@ -23,16 +23,16 @@ function MovieList() {
               alt={movie.title}
               className="bg-gray-300 h-64 rounded-lg shadow-md bg-cover bg-center"
             />
-            <div className="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-              <div className="py-2 text-center font-bold uppercase tracking-wide text-gray-800">{movie.title}</div>
-              <div className="flex items-center justify-between py-2 px-3 bg-gray-400">
-                <p className="text-gray-800">
-                  {JSON.stringify(movie.vote_average)}
-                  {/*{movie.genres?.map((genre) => (*/}
-                  {/*  <p>{genre}</p>*/}
-                  {/*))}*/}
-                </p>
-              </div>
+            <div className="py-2 text-center text-white font-bold uppercase tracking-wide text-gray-800">
+              {movie.title}
+            </div>
+            <div className="flex items-center text-white justify-between py-2 px-3 bg-gray-400">
+              <p className="text-gray-800">
+                {JSON.stringify(movie.vote_average)}
+                {/*{movie.genres?.map((genre) => (*/}
+                {/*  <p>{genre}</p>*/}
+                {/*))}*/}
+              </p>
             </div>
           </div>
         ))}
