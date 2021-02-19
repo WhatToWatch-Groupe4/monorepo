@@ -13,9 +13,9 @@ function MovieList() {
   if (movies === null) return null;
   console.log(movies);
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto ">
       <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES</h1>
-      <div className="grid md:grid-flow-col grid-cols-5 grid-rows-5 gap-5">
+      <div className="grid md:grid-flow-col grid-cols-6 grid-rows-3 gap-0">
         {movies.map((movie) => (
           <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
             <img
