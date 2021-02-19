@@ -9,21 +9,21 @@ export class WishListController {
 
   @Get(':user')
   async getWishList(@Param('user') user: string): Promise<WishList[]> {
-    return this.wishlistService.getWishList(user);
+    return await this.wishlistService.getWishList(user);
   }
 
   @Get(':user/:movie')
   async checkWish(@Param('user') user: string, @Param('movie') movie: string): Promise<WishList> {
-    return this.wishlistService.checkWish(user, +movie);
+    return await this.wishlistService.checkWish(user, +movie);
   }
 
   @Post()
   async createWishList(@Body() createWishList: WishListDto): Promise<WishList> {
-    return this.wishlistService.insertWishList(createWishList.userId, createWishList.movieId);
+    return await this.wishlistService.insertWishList(createWishList.userId, createWishList.movieId);
   }
 
-  @Delete()
-  async removeWishList(@Body() wishListDelete: WishListDto): Promise<void> {
-    void this.wishlistService.deleteWishList(wishListDelete.userId, wishListDelete.movieId);
+  @Delete(':user/:movie')
+  async removeWishList(@Param('user') user: string, @Param('movie') movie: string): Promise<void> {
+    void (await this.wishlistService.deleteWishList(user, +movie));
   }
 }
