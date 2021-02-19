@@ -13,8 +13,8 @@ export class WishListController {
   }
 
   @Get(':user/:movie')
-  async checkWish(@Param('user') user: string, @Param('movie') movie: number): Promise<WishList> {
-    return this.wishlistService.checkWish(user, movie);
+  async checkWish(@Param('user') user: string, @Param('movie') movie: string): Promise<WishList> {
+    return this.wishlistService.checkWish(user, +movie);
   }
 
   @Post()

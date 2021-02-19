@@ -18,9 +18,12 @@ function WishButton() {
     }
   }
   const checkWishList = async () => {
-    await fetch('http://localhost:3000/wishlist/${user_id}/${id}')
+    await fetch(`http://localhost:3000/wishlist/${user_id}/${id}`)
       .then((data) => data.json())
-      .then((res) => setWish(res.idMovie))
+      .then((res) => {
+        setWish(res.idMovie);
+        console.log(wish);
+      })
       .catch(() => setWish(null));
   };
 
@@ -29,7 +32,11 @@ function WishButton() {
       method: 'POST',
       headers: new Headers({ 'content-type': 'application/json' }),
       body: JSON.stringify({ userId: user_id, movieId: id }),
-    });
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        setWish(res.idMovie);
+      });
   };
 
   const removeToWishList = async () => {
@@ -38,6 +45,7 @@ function WishButton() {
       headers: new Headers({ 'content-type': 'application/json' }),
       body: JSON.stringify({ userId: user_id, movieId: id }),
     });
+    setWish(null);
   };
 
   useEffect(() => {
