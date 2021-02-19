@@ -10,23 +10,23 @@ export class WishListService {
     private wishListRepository: Repository<WishList>,
   ) {}
 
-  async insertWishList(user_id: string, movieId: number): Promise<WishList> {
-    const wishListReceived = new WishList(user_id, movieId);
+  async insertWishList(userId: string, movieId: number): Promise<WishList> {
+    const wishListReceived = { idUser: userId, movieId };
     return await this.wishListRepository.save(wishListReceived);
   }
 
-  async checkWish(user_id: string, movieId: number): Promise<WishList>{
-    return await this.wishListRepository.findOne({ idMovie: movieId, idUser: user_id });
+  async checkWish(userId: string, movieId: number): Promise<WishList | undefined> {
+    return await this.wishListRepository.findOne({ movieId: movieId, userUuid: userId });
   }
 
   async deleteWishList(userId: string, movieId: number): Promise<void> {
-    const wishListSelected = await this.wishListRepository.count({ idMovie: movieId, idUser: userId });
+    const wishListSelected = await this.wishListRepository.count({ movieId: movieId, userUuid: userId });
     if (wishListSelected > 0) {
-      await this.wishListRepository.remove(await this.wishListRepository.find({ idMovie: movieId, idUser: userId }));
+      await this.wishListRepository.remove(await this.wishListRepository.find({ movieId: movieId, userUuid: userId }));
     }
   }
 
   async getWishList(user_id: string): Promise<WishList[]> {
-    return this.wishListRepository.find({ idUser: user_id });
+    return this.wishListRepository.find({ userUuid: user_id });
   }
 }

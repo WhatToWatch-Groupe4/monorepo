@@ -3,13 +3,13 @@ import { Entity, PrimaryColumn } from 'typeorm';
 @Entity('wishlists')
 export class WishList {
   @PrimaryColumn()
-  idMovie: number;
+  movieId: number;
 
   @PrimaryColumn()
-  idUser: string;
+  userUuid: string;
 
   constructor(idUser: string, idMovie: number) {
-    this.idUser = idUser;
-    this.idMovie = idMovie;
+    this.userUuid = idUser;
+    this.movieId = idMovie;
   }
 }
