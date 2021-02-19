@@ -1,0 +1,60 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["@typescript-eslint", "prettier"],
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "jest": true,
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": ["error", { "singleQuote": true, "printWidth": 120 }],
+      "sort-imports": [
+        "warn",
+        {
+          "ignoreDeclarationSort": true,
+          "memberSyntaxSortOrder": ["none", "all", "single", "multiple"]
+        }
+      ],
+      "@typescript-eslint/explicit-function-return-type": [
+        "warn",
+        {
+          "allowTypedFunctionExpressions": true
+        }
+      ],
+      "@typescript-eslint/no-extra-non-null-assertion": ["warn"],
+      "@typescript-eslint/no-extraneous-class": [
+        "warn",
+        {
+          "allowStaticOnly": true,
+          "allowWithDecorator": true
+        }
+      ],
+      "@typescript-eslint/no-non-null-asserted-optional-chain": ["warn"],
+      "@typescript-eslint/no-require-imports": ["warn"],
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": ["warn"],
+      "@typescript-eslint/no-unnecessary-condition": ["warn"],
+      "@typescript-eslint/no-unnecessary-qualifier": ["warn"],
+      "@typescript-eslint/no-throw-literal": ["warn"],
+      "@typescript-eslint/no-implied-eval": ["warn"],
+      "@typescript-eslint/no-floating-promises": ["warn"],
+      "@typescript-eslint/member-ordering": ["warn"]
+    },
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": ["./tsconfig.json"],
+      "tsconfigRootDir": "./"
+    }
+  }

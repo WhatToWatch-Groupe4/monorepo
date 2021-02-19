@@ -1,0 +1,3 @@
+{
+  "extends": ["@wtw/eslint-config"]
+}
