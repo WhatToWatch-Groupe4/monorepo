@@ -19,7 +19,6 @@ export class WishListController {
 
   @Post()
   async createWishList(@Body() createWishList: WishListDto): Promise<WishList> {
-    console.log(createWishList);
     return this.wishlistService.insertWishList(createWishList.userId, createWishList.movieId);
   }
 
