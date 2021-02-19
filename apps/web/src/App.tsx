@@ -35,9 +35,7 @@ function App() {
               <Route path="/viewlist">
                 <ViewList />
               </Route>
-              <Route path="/wishlist">
-                <WishList />
-              </Route>
+              <Route path="/wishlist">{/* <WishList /> */}</Route>
               <Route path="/">
                 <MovieList />
               </Route>

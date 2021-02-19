@@ -26,7 +26,6 @@ function WishButton({ movieId }: Props) {
       .then((data) => data.json())
       .then((res) => {
         setWish(res.idMovie);
-        console.log(wish);
       })
       .catch(() => setWish(null));
   };
