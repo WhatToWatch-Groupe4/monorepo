@@ -23,13 +23,10 @@ function MovieList() {
               alt={movie.title}
               className="bg-gray-300 h-64 rounded-lg shadow-md bg-cover bg-center"
             />
-            <div className="py-2 text-center text-white font-bold uppercase tracking-wide text-gray-800">
-              {movie.title}
-            </div>
-            <div className="flex items-center text-white justify-between py-2 px-3 bg-gray-400">
-              <p className="text-gray-800">
-                {JSON.stringify(movie.vote_average)}
-                {/*{movie.genres?.map((genre) => (*/}
+            <div className="py-2 text-center text-white font-bold uppercase tracking-wide">{movie.title}</div>
+            <div className="flex items-center text-white justify-between py-2 px-3 ">
+              <p className="text-white">
+                {JSON.stringify(movie.vote_average)}/10 ⭐{/*{movie.genres?.map((genre) => (*/}
                 {/*  <p>{genre}</p>*/}
                 {/*))}*/}
               </p>
