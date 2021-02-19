@@ -1,10 +1,9 @@
+import { MoviesModule } from './movies/movies.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ViewsController } from './views/views.controller';
-import { ViewsService } from './views/views.service';
 import { ViewsModule } from './views/views.module';
 
 @Module({
@@ -24,6 +23,7 @@ import { ViewsModule } from './views/views.module';
       }),
       inject: [ConfigService],
     }),
+    MoviesModule,
     ViewsModule,
   ],
   controllers: [AppController],
