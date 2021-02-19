@@ -22,6 +22,7 @@ function TopMenu() {
             <p className="px-8 rounded-xl text-white uppercase font-bold inline-block text-sm bg-gradient-to-r from-primary to-secondary">
               admin
             </p>
+            <Login />
           </div>
         </div>
       </div>
