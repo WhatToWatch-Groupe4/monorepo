@@ -5,7 +5,7 @@ import keycloak from './keycloak';
 import SideMenu from './components/SideMenu';
 import TopMenu from './components/TopMenu';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Home from './components/Home';
+import MovieList from './components/MovieList';
 import MovieShow from './components/MovieShow';
 const eventLogger = (event: unknown, error: unknown) => {
   console.log('onKeycloakEvent', event, error);
@@ -30,7 +30,7 @@ function App() {
                 <MovieShow />
               </Route>
               <Route path="/">
-                <Home />
+                <MovieList />
               </Route>
             </Switch>
           </div>
