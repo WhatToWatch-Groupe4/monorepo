@@ -10,6 +10,20 @@ function WishButton() {
   const id = 664767;
   const user_id = '22C32';
 
+  function switchWish(): void {
+    if (!wish) {
+      void addToWishList();
+    } else {
+      void removeToWishList();
+    }
+  }
+  const checkWishList = async () => {
+    await fetch('http://localhost:3000/wishlist/${user_id}/${id}')
+      .then((data) => data.json())
+      .then((res) => setWish(res.idMovie))
+      .catch(() => setWish(null));
+  };
+
   const addToWishList = async () => {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'POST',
@@ -26,10 +40,20 @@ function WishButton() {
     });
   };
 
+  useEffect(() => {
+    void checkWishList();
+  });
+
+  if (!wish) {
+    return (
+      <div>
+        <button onClick={() => switchWish()}>☆</button>
+      </div>
+    );
+  }
   return (
     <div>
-      <button onClick={() => addToWishList()}>Ajouter</button>
-      <button onClick={() => removeToWishList()}>Supprimer</button>
+      <button onClick={() => switchWish()}>★</button>
     </div>
   );
 }
