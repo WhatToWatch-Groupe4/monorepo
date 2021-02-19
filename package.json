@@ -1,5 +1,5 @@
 {
-  "name": "flasher",
+  "name": "wtw",
   "private": true,
   "workspaces": [
     "apps/*",

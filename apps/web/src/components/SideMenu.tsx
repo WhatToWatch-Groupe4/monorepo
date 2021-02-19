@@ -3,16 +3,29 @@ import clapperboard from '../assets/icons/clapperboard.png';
 import clock from '../assets/icons/clock.png';
 import binoculars from '../assets/icons/binoculars.png';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function SideMenu() {
   return (
     <div className="w-32 bg-black-20 h-screen fixed">
-      <img src={logo} alt="logo" className="p-6" />
+      <Link to={''}>
+        <img src={logo} alt="logo" className="p-6" />
+      </Link>
       <div className="h-0.5 bg-white opacity-40 w-16 m-auto my-4" />
       <div className="menu">
-        <img src={clapperboard} alt="logo" className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
-        <img src={clock} alt="logo" className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
-        <img src={binoculars} alt="logo" className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
+        <Link to={''}>
+          <img
+            src={clapperboard}
+            alt="logo"
+            className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer"
+          />
+        </Link>
+        <Link to={'/wishlist'}>
+          <img src={clock} alt="logo" className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
+        </Link>
+        <Link to={'/viewlist'}>
+          <img src={binoculars} alt="logo" className="m-auto px-11 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
+        </Link>
       </div>
     </div>
   );
