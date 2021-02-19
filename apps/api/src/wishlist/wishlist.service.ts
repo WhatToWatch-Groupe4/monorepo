@@ -22,7 +22,7 @@ export class WishListService {
     }
   }
 
-  async getWishList(user_id: string): Promise<WishList[]>{
-    return this.wishListRepository.find({idUser: user_id});
+  async getWishList(user_id: string): Promise<WishList[]> {
+    return this.wishListRepository.find({ idUser: user_id });
   }
 }

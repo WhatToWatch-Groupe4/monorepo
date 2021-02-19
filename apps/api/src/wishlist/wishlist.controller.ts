@@ -8,7 +8,7 @@ export class WishListController {
   constructor(private readonly wishlistService: WishListService) {}
 
   @Get(':user')
-  async getWishList(@Param('user') user: string): Promise<WishList[]>{
+  async getWishList(@Param('user') user: string): Promise<WishList[]> {
     return this.wishlistService.getWishList(user);
   }
 

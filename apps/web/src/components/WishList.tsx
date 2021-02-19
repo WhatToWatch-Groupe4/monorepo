@@ -1,11 +1,12 @@
-import React from 'react';
+import { useEffect } from "react";
 
-function WishList() {
-  return (
-    <div className="w-full fixed flex justify-between relative align-center">
-      <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">Mes films à voir</h1>
-    </div>
-  );
+function WishList(){
+    const id = 664767;
+
+    const user_id = "22C32";
+
+    useEffect(() => {
+        const res = fetch(`http://localhost:3000/wishlist`, {method: 'POST'})
+    },[]);
 }
-
-export default WishList;
+export default WishList();
