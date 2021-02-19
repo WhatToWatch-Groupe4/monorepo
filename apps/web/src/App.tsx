@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
-import SideMenu from './components/SideMenu';
-import TopMenu from './components/TopMenu';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import MovieShow from './components/MovieShow';
 import ViewList from './components/ViewList';
 import WishList from './components/WishList';
+import SideMenu from './components/SideMenu';
+import TopMenu from './components/TopMenu';
+
 const eventLogger = (event: unknown, error: unknown) => {
   console.log('onKeycloakEvent', event, error);
 };
