@@ -12,13 +12,19 @@ export class WishListController {
     return this.wishlistService.getWishList(user);
   }
 
+  @Get(':user/:movie')
+  async checkWish(@Param('user') user: string, @Param('movie') movie: number): Promise<WishList> {
+    return this.wishlistService.checkWish(user, movie);
+  }
+
   @Post()
   async createWishList(@Body() createWishList: WishListDto): Promise<WishList> {
+    console.log(createWishList);
     return this.wishlistService.insertWishList(createWishList.userId, createWishList.movieId);
   }
 
   @Delete()
   async removeWishList(@Body() wishListDelete: WishListDto): Promise<void> {
-    this.wishlistService.deleteWishList(wishListDelete.userId, wishListDelete.movieId);
+    void this.wishlistService.deleteWishList(wishListDelete.userId, wishListDelete.movieId);
   }
 }
