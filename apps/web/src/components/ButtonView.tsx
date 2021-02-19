@@ -8,11 +8,11 @@ interface Props {
 }
 
 function ButtonView({ movie }: Props) {
-  const [view, setView] = useState(0);
+  const [view, setView] = useState<number | null>(null);
   const { keycloak } = useKeycloak();
 
   function toggleView(): void {
-    if (view == 0) {
+    if (!view) {
       void addView();
     } else {
       void removeView();
@@ -23,7 +23,7 @@ function ButtonView({ movie }: Props) {
     await fetch(`http://localhost:3000/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
       .then((data) => data.json())
       .then((res) => setView(res.id))
-      .catch(() => setView(0));
+      .catch(() => setView(null));
   };
 
   const addView = async (): Promise<void> => {
@@ -49,7 +49,7 @@ function ButtonView({ movie }: Props) {
         method: 'DELETE',
       })
         .then((data) => data.json())
-        .then(() => setView(0))
+        .then(() => setView(null))
         .catch(() => console.error('Error: Remove view'));
     }
   };
@@ -60,7 +60,7 @@ function ButtonView({ movie }: Props) {
     }
   });
 
-  if (view == 0) {
+  if (!view) {
     return (
       <button
         className="border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
