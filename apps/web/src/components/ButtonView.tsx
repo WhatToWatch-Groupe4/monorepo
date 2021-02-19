@@ -58,7 +58,7 @@ function ButtonView({ movie }: Props) {
     if (keycloak.authenticated) {
       void getView();
     }
-  });
+  }, [keycloak.authenticated]);
 
   if (!view) {
     return (
