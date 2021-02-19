@@ -3,7 +3,7 @@ import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { useParams } from 'react-router-dom';
 import ButtonView from './ButtonView';
 import Comments from './Comments';
-import WishButton from './WishList';
+import WishButton from './WishButton';
 
 function MovieShow() {
   const { id } = useParams<{ id: string | undefined }>();

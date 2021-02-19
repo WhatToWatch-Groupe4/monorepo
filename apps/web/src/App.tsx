@@ -6,7 +6,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import MovieShow from './components/MovieShow';
 import ViewList from './components/ViewList';
-import WishList from './components/WishList';
+import WishButton from './components/WishButton';
 import SideMenu from './components/SideMenu';
 import TopMenu from './components/TopMenu';
 
