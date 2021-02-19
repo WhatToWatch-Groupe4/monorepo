@@ -2,6 +2,7 @@ import user from '../assets/user.jpg';
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import Login from './Login';
+import Register from './Register';
 import { KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js';
 
 interface TokenParsed extends KeycloakTokenParsed {
@@ -37,6 +38,7 @@ function TopMenu() {
   return (
     <div className="w-full bg-black-13 fixed flex justify-between relative align-center min-h-112">
       <Login />
+      <Register />
     </div>
   );
 }
