@@ -10,7 +10,7 @@ export class MovieService {
     try {
       return await this.movieDbService.api
         .trending({
-          media_type: 'all',
+          media_type: 'movie',
           time_window: 'week',
         })
         .then((res) => {

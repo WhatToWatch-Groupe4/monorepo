@@ -13,13 +13,30 @@ function MovieList() {
   if (movies === null) return null;
   console.log(movies);
   return (
-    <div>
-      {movies.map((movie) => (
-        <div className="group border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent ...">
-          <p className="text-indigo-600 group-hover:text-gray-900 ...">{JSON.stringify(movie.title)}</p>
-          <p className="text-indigo-500 group-hover:text-gray-500 ...">{JSON.stringify(movie.genres)}</p>
-        </div>
-      ))}
+    <div className="container mx-auto">
+      <h1 className="text-4xl text-white uppercase font-bold mb-4">TOUS LES FILMS / SÉRIES</h1>
+      <div className="grid md:grid-flow-col grid-cols-5 grid-rows-5 gap-5">
+        {movies.map((movie) => (
+          <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+              className="bg-gray-300 h-64 rounded-lg shadow-md bg-cover bg-center"
+            />
+            <div className="w-56 md:w-64 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
+              <div className="py-2 text-center font-bold uppercase tracking-wide text-gray-800">{movie.title}</div>
+              <div className="flex items-center justify-between py-2 px-3 bg-gray-400">
+                <p className="text-gray-800">
+                  {JSON.stringify(movie.vote_average)}
+                  {/*{movie.genres?.map((genre) => (*/}
+                  {/*  <p>{genre}</p>*/}
+                  {/*))}*/}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
