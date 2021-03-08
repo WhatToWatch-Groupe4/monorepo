@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import './App.css';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
