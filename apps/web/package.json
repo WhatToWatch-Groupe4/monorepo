@@ -20,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -53,7 +54,6 @@
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "@wtw/eslint-config": "^1.0.0",
     "autoprefixer": "9",
-    "postcss": "7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "postcss": "7"
   }
 }
