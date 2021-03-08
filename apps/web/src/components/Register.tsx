@@ -1,6 +1,7 @@
 import { useKeycloak } from '@react-keycloak/web';
+import { FunctionComponent } from 'react';
 
-function Register() {
+const Register: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   if (!initialized) {
@@ -21,6 +22,6 @@ function Register() {
       </a>
     </div>
   );
-}
+};
 
 export default Register;

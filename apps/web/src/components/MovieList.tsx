@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { Link } from 'react-router-dom';
 
-function MovieList() {
+const MovieList: FunctionComponent = () => {
   const [movies, setMovie] = useState<Array<MovieResponse> | null>([]);
 
   useEffect(() => {
@@ -41,6 +41,6 @@ function MovieList() {
       </div>
     </div>
   );
-}
+};
 
 export default MovieList;

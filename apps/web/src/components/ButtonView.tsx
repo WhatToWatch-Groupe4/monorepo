@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import binoculars from '../assets/icons/binoculars.png';
 import binocularsPrimary from '../assets/icons/binoculars-primary.png';
 import { useKeycloak } from '@react-keycloak/web';
@@ -7,7 +7,7 @@ interface Props {
   movie: number;
 }
 
-function ButtonView({ movie }: Props) {
+const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
   const [view, setView] = useState<number | null>(null);
   const { keycloak } = useKeycloak();
 
@@ -80,6 +80,6 @@ function ButtonView({ movie }: Props) {
       <img src={binoculars} alt="logo" className="px-24 py-4 inline w-11/12" />
     </button>
   );
-}
+};
 
 export default ButtonView;

@@ -2,11 +2,11 @@ import logo from '../assets/logo.svg';
 import clapperboard from '../assets/icons/clapperboard.png';
 import clock from '../assets/icons/clock.png';
 import binoculars from '../assets/icons/binoculars.png';
-import React from 'react';
+import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 
-function SideMenu() {
+const SideMenu: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   if (!initialized) {
@@ -61,6 +61,6 @@ function SideMenu() {
       </div>
     );
   }
-}
+};
 
 export default SideMenu;
