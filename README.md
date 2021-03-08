@@ -14,17 +14,19 @@ Pour récupèrer une clé API v3, il suffit de créer un compte sur [https://www
 Ensuite, se rendre dans les  [paramètres de l'api de son compte](https://www.themoviedb.org/settings/api) et suivre la procédure.
 ## Run in dev
 
-Il faut s'assurer de bien définir les `.env` disponibles dans les deux projets, des exemples sont diponnibles : 
+Il faut s'assurer de bien définir les `.env` disponnible dans les deux projets, des exemples sont diponnibles :
 - `apps/web/.env.example` -> `apps/web/.env`
 - `apps/api/.env.example` -> `apps/api/.env`
 
 ```bash
-yarn install # Installe les dépendances 
-yarn dev # Lancer les projets
+$ yarn install # Installe les dépendances 
+...
+$ yarn dev # Lancer les projets
+...
 ```
 
 La Dockerization est prévu pour simplifier sa mise en place.
 
 ## Run in production
 
-
+TODO

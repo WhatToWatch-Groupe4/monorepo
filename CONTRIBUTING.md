@@ -1,7 +1,7 @@
 # Contributing
 
 Pour ce projet, nous allons suivre le workflow [Gitflow](https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow). Cela signifie que nous avons une branche de production (main), et une branche de développement (develop).
-Le projet a été découpé en plusieurs issues. 
+Le projet a été découpé en plusieurs issues.
 Le développement de chaque issue est effectué sous des branches "feature", qui une fois terminées, seront fusionnées dans la branche de développement (develop). Lorsqu'une nouvelle version est publiée, nous fusionnons la branche de développement (develop) dans la branche de production (main).
 
 
@@ -32,7 +32,7 @@ Voici un exemple:
     <body>
     <BLANK LINE>
     <footer>
-    
+
 Pour un "breaking change", il faut rajouter un `!` juste après la portée (scope).
 
 ### Type
@@ -57,5 +57,5 @@ La portée (scope) doit faire partie de la liste suivante:
 ### Sujet (Subject)
 
 - Il doit utiliser le présent de l'impératif ( "change" not "changed" nor "changes")
-- Ne pas commencer par une majuscule 
+- Ne pas commencer par une majuscule
 - Ne pas finir par un point
