@@ -25,16 +25,16 @@ jobs:
       name: Run linter
       uses: github/super-linter@v3
       env:
-        # VALIDATE_ALL_CODEBASE: false
+        VALIDATE_ALL_CODEBASE: false
         # VALIDATE_TYPESCRIPT_ES: false
         # VALIDATE_TSX: false
         # TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.json
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # ACTIONS_RUNNER_DEBUG: false
+        # ACTIONS_RUNNER_DEBUG: true
         DEFAULT_WORKSPACE: apps/web
         JAVASCRIPT_DEFAULT_STYLE: prettier
-        VALIDATE_JAVASCRIPT_STANDARD: false
-        VALIDATE_TYPESCRIPT_STANDARD: false
+        VALIDATE_JAVASCRIPT_STANDARD: false # We use prettier
+        VALIDATE_TYPESCRIPT_STANDARD: false # We use prettier
 
   build:
     # runs-on: self-hosted
