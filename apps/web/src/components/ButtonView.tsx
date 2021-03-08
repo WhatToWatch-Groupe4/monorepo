@@ -63,7 +63,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
   if (!view) {
     return (
       <button
-        className="border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none disabled:opacity-50"
+        className="btn-movie-not-view border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none disabled:opacity-50"
         onClick={toggleView}
         disabled={!keycloak.authenticated}
       >
@@ -74,7 +74,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
 
   return (
     <button
-      className="bg-primary border-4 border-primary cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
+      className="btn-movie-view bg-primary border-4 border-primary cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
       onClick={toggleView}
     >
       <img src={binoculars} alt="logo" className="px-24 py-4 inline w-11/12" />
