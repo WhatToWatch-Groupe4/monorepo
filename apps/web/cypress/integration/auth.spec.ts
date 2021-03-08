@@ -15,10 +15,13 @@ export default context('Auth', () => {
     })
 
     it('Check correct login', () => {
+        const username = Cypress.env('username')
+        const password = Cypress.env('password')
+
         cy.get('#login-btn a').click()
         cy.location('href').should('contain', 'https://accounts.agravelot.eu/auth/realms/wtw/protocol/openid-connect/auth')
-        cy.get('#username') .type('test@test.com').should('have.value', 'test@test.com')
-        cy.get('#password') .type('test@test.com').should('have.value', 'test@test.com')
+        cy.get('#username') .type(username).should('have.value', username)
+        cy.get('#password') .type(password).should('have.value', password)
         cy.get('#kc-login').click()
         cy.location('href').should('equal', 'http://localhost:3001/')
         cy.get('#user-log').should('be.visible')

@@ -1,3 +1,7 @@
 {
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "env": {
+    "username": "SET YOUR USERNAME HERE",
+    "password": "SET YOUR PASSWORD HERE"
+  }
 }
