@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -14,7 +14,7 @@ interface Props {
   movieId: number;
 }
 
-function Comments({ movieId }: Props) {
+const Comments: FunctionComponent<Props> = ({ movieId }: Props) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -48,6 +48,6 @@ function Comments({ movieId }: Props) {
       ))}
     </div>
   );
-}
+};
 
 export default Comments;

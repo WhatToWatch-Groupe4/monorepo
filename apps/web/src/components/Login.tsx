@@ -1,6 +1,7 @@
 import { useKeycloak } from '@react-keycloak/web';
+import { FunctionComponent } from 'react';
 
-function Login() {
+const Login: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   if (!initialized) {
@@ -25,6 +26,6 @@ function Login() {
       </a>
     </div>
   );
-}
+};
 
 export default Login;
