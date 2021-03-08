@@ -28,6 +28,7 @@ const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
     }
   };
 
+  /* jscpd:ignore-start */
   const checkWishList = async (): Promise<void> => {
     await fetch(`http://localhost:3000/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`)
       .then((data) => data.json())
@@ -55,6 +56,7 @@ const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
         throw e;
       });
   };
+  /* jscpd:ignore-end */
 
   const removeToWishList = async (): Promise<void> => {
     await fetch(`http://localhost:3000/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`, {
