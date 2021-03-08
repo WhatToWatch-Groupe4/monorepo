@@ -18,11 +18,13 @@ WORKDIR /app
 # Copy all files, ignore apps folder
 COPY [^a]* . 
 COPY apps/web/package.json apps/web/package.json
+COPY libs/eslint-config/package.json libs/eslint-config/package.json
 
 
 RUN yarn install --frozen-lockfile --production && yarn cache clean
 
 COPY apps/web apps/web
+COPY libs libs
 
 RUN yarn workspace web run lint && yarn workspace web run build
 
