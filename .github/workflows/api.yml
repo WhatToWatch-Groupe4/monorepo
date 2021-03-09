@@ -38,11 +38,6 @@ jobs:
           DEFAULT_BRANCH: main
   test:
     runs-on: ubuntu-latest
-    env:
-      POSTGRES_USER: ${{ secrets.PG_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
-      POSTGRES_DB: $${{ secrets.PG_DB }}
-
     strategy:
       matrix:
         node_version:
@@ -79,8 +74,17 @@ jobs:
       -
         name: Run Unit Test
         run: yarn workspace api test
+
       - name: Run End to End test
         run: yarn workspace api test:e2e
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_USERNAME: wtw
+          DB_PASSWORD: test
+          DB_DATABASE: wtw_db
+          MOVIEDB_API_KEY: ${{ secrets.API_KEY }}
+
   build:
     # runs-on: self-hosted
     runs-on: ubuntu-latest
