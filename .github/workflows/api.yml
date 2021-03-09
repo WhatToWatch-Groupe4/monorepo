@@ -36,6 +36,54 @@ jobs:
           VALIDATE_JAVASCRIPT_STANDARD: false
           VALIDATE_TYPESCRIPT_STANDARD: false
           DEFAULT_BRANCH: main
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          - 12
+          - 14
+        architecture:
+          - x64
+    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          architecture: ${{ matrix.architecture }}
+      -
+        name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      -
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      -
+        name: Install dependencies
+        run: yarn install
+      -
+        name: Run Docker-Compose
+        run: docker-compose up -d
+      -
+        name: Run Unit Test
+        run: yarn workspace api test
+
+      - name: Run End to End test
+        run: yarn workspace api test:e2e
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_USERNAME: wtw
+          DB_PASSWORD: test
+          DB_DATABASE: wtw_db
+          MOVIEDB_API_KEY: ${{ secrets.API_KEY }}
 
   build:
     # runs-on: self-hosted
