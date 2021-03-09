@@ -38,8 +38,8 @@ describe('ViewController (e2e)', () => {
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/views')
-      .expect(200)
       .query({ user_uuid: firstView.user_uuid })
+      .expect(200)
       .expect((res) => {
         expect(res.body[0]).toHaveProperty('movie', 527774);
       });
