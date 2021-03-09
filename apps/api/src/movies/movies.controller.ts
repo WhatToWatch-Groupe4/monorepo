@@ -13,8 +13,10 @@ export class MoviesController {
       return await this.movieService.movieDbService.api.movieInfo(id);
     } catch (e) {
       const err = e as AxiosError;
-      if (err.response.status === 404) {
-        throw new NotFoundException(err.response.data.status_message);
+      if (err.response) {
+        if (err.response.status === 404) {
+          throw new NotFoundException(err.response.data.status_message);
+        }
       }
       throw new InternalServerErrorException(e);
     }
