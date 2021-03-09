@@ -3,6 +3,9 @@
 export default context('Home', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3001/')
+        cy.intercept('http://localhost:3000/movies/*', { fixture: 'movie.json' })
+        cy.intercept('http://localhost:3000/movies/', { fixture: 'movies.json' })
+        cy.intercept('http://localhost:3000/comments', { fixture: 'comments.json' })
     })
 
     it('Check all elements are displayed', () => {
@@ -16,7 +19,7 @@ export default context('Home', () => {
 
     it('Check all films are displayed', () => {
         cy.get('#movie-list a').should('be.visible')
-        cy.get('#movie-list a').should('have.length', 20)
+        cy.get('#movie-list a').should('have.length', 1)
     })
 
     it('Check login btn', () => {
