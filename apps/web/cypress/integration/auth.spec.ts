@@ -3,6 +3,7 @@
 export default context('Auth', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3001/')
+        cy.intercept('http://localhost:3000/movies/', { fixture: 'movies.json' })
     })
 
     it('Check login or password error', () => {
