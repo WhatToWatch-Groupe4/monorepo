@@ -22,4 +22,8 @@ export default context('SideMenu', () => {
         cy.get('.view-link').click()
         cy.location('pathname').should('equal', '/viewlist')
     })
+
+    it('Logout', () => {
+        cy.get('#user-log a').click()
+    })
 })

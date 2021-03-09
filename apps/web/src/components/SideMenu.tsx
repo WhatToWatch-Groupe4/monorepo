@@ -30,7 +30,11 @@ const SideMenu: FunctionComponent = () => {
         {keycloak.authenticated && (
           <>
             <Link to={'/wishlist'}>
-              <img src={clock} alt="logo" className="wish-link m-auto px-10 py-6 opacity-50 hover:opacity-100 cursor-pointer" />
+              <img
+                src={clock}
+                alt="logo"
+                className="wish-link m-auto px-10 py-6 opacity-50 hover:opacity-100 cursor-pointer"
+              />
             </Link>
             <Link to={'/viewlist'}>
               <img

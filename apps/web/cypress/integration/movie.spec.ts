@@ -10,9 +10,7 @@ export default context('Movie', () => {
         cy.location('pathname').should('contain', '/movies')
 
         // Viewlist btn
-        cy.get('.btn-movie-not-view').should('be.visible')
-        cy.get('.btn-movie-not-view').click()
-        cy.get('.btn-movie-not-view').should('be.visible')
+        cy.get('.btn-movie-not-view').should('be.disabled')
     })
 
     it('Log in', () => {
@@ -29,13 +27,13 @@ export default context('Movie', () => {
         cy.location('pathname').should('contain', '/movies')
 
         // Viewlist btn
+        cy.get('.btn-movie-not-view').should('not.be.disabled')
         cy.get('.btn-movie-not-view').should('be.visible')
         cy.get('.btn-movie-not-view img').click()
         cy.get('.btn-movie-view').should('be.visible')
 
         // Cancel actions and logout
         cy.get('.btn-movie-view').click()
-        cy.get('#user-log a').click()
     })
 
 })
