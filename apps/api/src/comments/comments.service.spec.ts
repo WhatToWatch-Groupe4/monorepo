@@ -13,7 +13,8 @@ describe('CommentsService', () => {
         {
           provide: getRepositoryToken(Comment),
           useValue: 'commentRepository',
-        },],
+        },
+      ],
     }).compile();
 
     service = module.get<CommentsService>(CommentsService);
