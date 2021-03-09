@@ -12,7 +12,7 @@ export class ViewsService {
   findAll(user_uuid: string): Promise<View[]> {
     return this.viewRepository.find({ where: { user_uuid } });
   }
-  findOne(user_uuid: string, movie: number): Promise<View> {
+  findOne(user_uuid: string, movie: number): Promise<View | undefined> {
     return this.viewRepository.findOne({ where: { user_uuid, movie } });
   }
   create(user_uuid: string, movie: number): Promise<View> {

@@ -13,7 +13,7 @@ export class WishListController {
   }
 
   @Get(':user/:movie')
-  async checkWish(@Param('user') user: string, @Param('movie') movie: string): Promise<WishList> {
+  async checkWish(@Param('user') user: string, @Param('movie') movie: string): Promise<WishList | undefined> {
     return await this.wishlistService.checkWish(user, +movie);
   }
 
