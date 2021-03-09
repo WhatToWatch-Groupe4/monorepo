@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { ViewsService } from './../src/views/views.service';
+import { getConnection } from 'typeorm';
 
 describe('ViewController (e2e)', () => {
   let app: INestApplication;
@@ -11,13 +12,16 @@ describe('ViewController (e2e)', () => {
   const secondView = { user_uuid: 'secondusermock', movie: 577922 };
   const thirdView = { user_uuid: 'firstusermock', movie: 577922 };
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
+    await getConnection().synchronize(true);
+
     app = moduleFixture.createNestApplication();
     await app.init();
+
     viewService = app.get<ViewsService>(ViewsService);
     await Promise.all([
       viewService.create(firstView.user_uuid, firstView.movie),
@@ -25,7 +29,7 @@ describe('ViewController (e2e)', () => {
     ]);
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await app.close();
   });
 
