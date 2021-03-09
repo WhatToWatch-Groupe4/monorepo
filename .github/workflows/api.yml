@@ -81,9 +81,9 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
           DB_USERNAME: wtw
-          DB_PASSWORD: test
-          DB_DATABASE: wtw_db
-          MOVIEDB_API_KEY: ${{ secrets.API_KEY }}
+          DB_PASSWORD: wtw
+          DB_DATABASE: wtw
+          MOVIEDB_API_KEY: ${{ secrets.MOVIEDB_API_KEY }}
 
   build:
     # runs-on: self-hosted
