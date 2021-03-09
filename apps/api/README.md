@@ -1,3 +1,5 @@
+# WTW api
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -30,6 +32,7 @@
 
 ```bash
 $ yarn install
+...
 ```
 
 ## Running the app
@@ -37,12 +40,16 @@ $ yarn install
 ```bash
 # development
 $ yarn workspace api run start
+...
 
 # watch mode
 $ yarn workspace api run start:dev
+...
 
 # production mode
 $ yarn workspace api run start:prod
+...
+
 ```
 
 ## Test
@@ -50,12 +57,15 @@ $ yarn workspace api run start:prod
 ```bash
 # unit tests
 $ yarn workspace api run test
+...
 
 # e2e tests
 $ yarn workspace api run test:e2e
+...
 
 # test coverage
 $ yarn workspace api run test:cov
+...
 ```
 
 ## Support

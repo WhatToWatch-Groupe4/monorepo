@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import { FunctionComponent } from 'react';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -10,15 +9,15 @@ import SideMenu from './components/SideMenu';
 import TopMenu from './components/TopMenu';
 import WishList from './components/WishList';
 
-const eventLogger = (event: unknown, error: unknown) => {
+const eventLogger = (event: unknown, error: unknown): void => {
   console.log('onKeycloakEvent', event, error);
 };
 
-const tokenLogger = (tokens: unknown) => {
+const tokenLogger = (tokens: unknown): void => {
   console.log('onKeycloakTokens', tokens);
 };
 
-function App() {
+const App: FunctionComponent = () => {
   return (
     <ReactKeycloakProvider authClient={keycloak} onEvent={eventLogger} onTokens={tokenLogger}>
       <Router>
@@ -47,6 +46,6 @@ function App() {
       </Router>
     </ReactKeycloakProvider>
   );
-}
+};
 
 export default App;

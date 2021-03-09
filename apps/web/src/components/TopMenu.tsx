@@ -1,15 +1,15 @@
 import user from '../assets/user.jpg';
-import React from 'react';
+import { FunctionComponent } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import Login from './Login';
 import Register from './Register';
-import { KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js';
+import { KeycloakTokenParsed } from 'keycloak-js';
 
 interface TokenParsed extends KeycloakTokenParsed {
   preferred_username: string;
 }
 
-function TopMenu() {
+const TopMenu: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   if (!initialized) {
@@ -41,6 +41,6 @@ function TopMenu() {
       <Register />
     </div>
   );
-}
+};
 
 export default TopMenu;

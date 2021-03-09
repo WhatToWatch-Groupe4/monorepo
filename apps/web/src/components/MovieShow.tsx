@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { useParams } from 'react-router-dom';
 import ButtonView from './ButtonView';
 import Comments from './Comments';
 import WishButton from './WishButton';
 
-function MovieShow() {
+const MovieShow: FunctionComponent = () => {
   const { id } = useParams<{ id: string | undefined }>();
 
   const [movie, setMovie] = useState<MovieResponse | null>(null);
@@ -39,6 +39,6 @@ function MovieShow() {
       <WishButton movieId={+id} />
     </div>
   );
-}
+};
 
 export default MovieShow;

@@ -1,5 +1,5 @@
 import { useKeycloak } from '@react-keycloak/web';
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 
 interface Wish {
   userId: string;
@@ -10,7 +10,7 @@ interface Props {
   movieId: number;
 }
 
-function WishButton({ movieId }: Props) {
+const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
   const [wish, setWish] = useState<Wish | null>(null);
   const { keycloak, initialized } = useKeycloak();
 
@@ -28,7 +28,8 @@ function WishButton({ movieId }: Props) {
     }
   };
 
-  const checkWishList = async () => {
+  /* jscpd:ignore-start */
+  const checkWishList = async (): Promise<void> => {
     await fetch(`http://localhost:3000/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`)
       .then((data) => data.json())
       .then((res) => {
@@ -40,7 +41,7 @@ function WishButton({ movieId }: Props) {
       });
   };
 
-  const addToWishList = async () => {
+  const addToWishList = async (): Promise<void> => {
     await fetch(`http://localhost:3000/wishlist`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -55,8 +56,9 @@ function WishButton({ movieId }: Props) {
         throw e;
       });
   };
+  /* jscpd:ignore-end */
 
-  const removeToWishList = async () => {
+  const removeToWishList = async (): Promise<void> => {
     await fetch(`http://localhost:3000/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
@@ -67,14 +69,14 @@ function WishButton({ movieId }: Props) {
   if (!wish) {
     return (
       <div>
-        <button onClick={() => switchWish()}>☆</button>
+        <button onClick={(): Promise<void> => switchWish()}>☆</button>
       </div>
     );
   }
   return (
     <div>
-      <button onClick={() => switchWish()}>★</button>
+      <button onClick={(): Promise<void> => switchWish()}>★</button>
     </div>
   );
-}
+};
 export default WishButton;
