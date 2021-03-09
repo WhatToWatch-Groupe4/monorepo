@@ -25,8 +25,6 @@ function Comments({ movieId }: Props) {
     void fetchData();
   }, []);
 
-  console.log(comments);
-
   return (
     <div className="text-white">
       <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({comments.length})</h2>
