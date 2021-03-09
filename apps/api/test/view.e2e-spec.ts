@@ -12,15 +12,17 @@ describe('ViewController (e2e)', () => {
   const secondView = { user_uuid: 'secondusermock', movie: 577922 };
   const thirdView = { user_uuid: 'firstusermock', movie: 577922 };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    await getConnection().synchronize(true);
-
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  beforeEach(async () => {
+    await getConnection().synchronize(true);
 
     viewService = app.get<ViewsService>(ViewsService);
     await Promise.all([
@@ -29,7 +31,7 @@ describe('ViewController (e2e)', () => {
     ]);
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await app.close();
   });
 
