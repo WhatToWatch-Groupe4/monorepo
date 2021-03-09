@@ -20,7 +20,6 @@ const Comments: FunctionComponent<Props> = ({ movieId }: Props) => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const res = await fetch(`http://localhost:3000/comments?movie_id=${movieId}`).then((data) => data.json());
-      console.log(res);
       setComments(res as Comment[]);
     };
     void fetchData();
