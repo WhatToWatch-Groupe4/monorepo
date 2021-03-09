@@ -18,7 +18,7 @@ const MovieList: FunctionComponent = () => {
   return (
     <div className="container mx-auto ">
       <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES</h1>
-      <div className="grid md:grid-flow-col grid-cols-6 grid-rows-3 gap-0">
+      <div id="movie-list" className="grid md:grid-flow-col grid-cols-6 grid-rows-3 gap-0">
         {movies.map((movie) => (
           <Link key={movie.id} to={'/movies/' + movie.id}>
             <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">

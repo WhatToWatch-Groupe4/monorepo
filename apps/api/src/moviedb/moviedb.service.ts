@@ -7,6 +7,6 @@ export class MovieDbService {
   public readonly api: MovieDb;
 
   constructor(config: ConfigService) {
-    this.api = new MovieDb(config.get<string>('MOVIEDB_API_KEY'));
+    this.api = new MovieDb(config.get<string>('MOVIEDB_API_KEY') ?? '');
   }
 }
