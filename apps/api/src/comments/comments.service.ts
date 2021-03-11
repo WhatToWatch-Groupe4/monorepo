@@ -9,8 +9,8 @@ import { Comment } from './entities/comment.entity';
 export class CommentsService {
   constructor(@InjectRepository(Comment) private readonly commentRepository: Repository<Comment>) {}
 
-  create(createCommentDto: CreateCommentDto): Comment {
-    throw new NotImplementedException({ createCommentDto });
+  create(createCommentDto: CreateCommentDto): Promise<Comment> {
+    return this.commentRepository.save(createCommentDto);
   }
 
   findAll(movieId: number): Promise<Comment[]> {

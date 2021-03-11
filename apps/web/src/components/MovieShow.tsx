@@ -5,13 +5,32 @@ import ButtonView from './ButtonView';
 import Comments from './Comments';
 import WishButton from './WishButton';
 import { Configuration } from '../configuration';
+import FormComment from './FormComment';
+import { useKeycloak } from '@react-keycloak/web';
+
+interface Comment {
+  id: number;
+  message: string;
+  username: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const MovieShow: FunctionComponent = () => {
   const { id } = useParams<{ id: string | undefined }>();
 
   const [movie, setMovie] = useState<MovieResponse | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  const { keycloak, initialized } = useKeycloak();
+
+  const handleComments = async (): Promise<void> => {
+    const res = await fetch(`${Configuration.apiBaseURL}/comments?movie_id=${id}`).then((data) => data.json());
+    setComments(res as Comment[]);
+  };
 
   useEffect(() => {
+    void handleComments();
     const fetchData = async (): Promise<void> => {
       const res = await fetch(`${Configuration.apiBaseURL}/movies/${id}`).then((data) => data.json());
       setMovie(res as MovieResponse);
@@ -36,7 +55,8 @@ const MovieShow: FunctionComponent = () => {
       <h2 className="font-medium text-2xl mt-10 mb-8">Synopsis</h2>
       <p className="text-gray-400">{movie.overview}</p>
       <ButtonView movie={+id} />
-      <Comments movieId={+id} />
+      <Comments commentsList={comments} />
+      {initialized && keycloak.authenticated && <FormComment movieId={+id} refreshComments={handleComments} />}
       <WishButton movieId={+id} />
     </div>
   );

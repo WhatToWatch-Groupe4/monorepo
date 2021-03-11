@@ -1,15 +1,16 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from './entities/comment.entity';
+import { CreateCommentDto } from './dto/create-comment.dto';
 
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
-  // @Post()
-  // create(@Body() createCommentDto: CreateCommentDto) {
-  //   return this.commentsService.create(createCommentDto);
-  // }
+  @Post()
+  create(@Body() createCommentDto: CreateCommentDto): Promise<Comment> {
+    return this.commentsService.create(createCommentDto);
+  }
 
   @Get()
   async findAll(@Query() query: { movie_id: number }): Promise<Comment[]> {

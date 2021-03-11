@@ -1,7 +1,6 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Configuration } from '../configuration';
 
 interface Comment {
   id: number;
@@ -12,24 +11,14 @@ interface Comment {
 }
 
 interface Props {
-  movieId: number;
+  commentsList: Array<Comment>;
 }
 
-const Comments: FunctionComponent<Props> = ({ movieId }: Props) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const res = await fetch(`${Configuration.apiBaseURL}/comments?movie_id=${movieId}`).then((data) => data.json());
-      setComments(res as Comment[]);
-    };
-    void fetchData();
-  }, []);
-
+const Comments: FunctionComponent<Props> = ({ commentsList }: Props) => {
   return (
     <div className="text-white">
-      <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({comments.length})</h2>
-      {comments.map((c) => (
+      <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({commentsList.length})</h2>
+      {commentsList.map((c) => (
         <div className="flex text-left">
           <img
             className="rounded-full"
