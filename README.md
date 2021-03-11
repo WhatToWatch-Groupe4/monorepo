@@ -23,6 +23,9 @@ $ yarn install # Installe les dépendances
 ...
 $ yarn dev # Lancer les projets
 ...
+
+$ docker-compose -f docker-compose.yml -f gateway/docker-compose.yml up -d
+...
 ```
 
 La Dockerization est prévu pour simplifier sa mise en place.
