@@ -26,7 +26,7 @@ const App: FunctionComponent = () => {
           <div id="Main-layout" className="ml-32">
             <TopMenu />
           </div>
-          <div className="container mx-auto">
+          <div className="container mx-auto pl-32">
             <Switch>
               <Route path="/movies/:id">
                 <MovieShow />
