@@ -18,10 +18,7 @@ RUN yarn install --frozen-lockfile --production && yarn cache clean
 COPY apps/web apps/web
 COPY libs libs
 
-
-RUN echo $REACT_APP_API_BASE_URL
-
 RUN yarn workspace web run build
 
-FROM nginx
+FROM nginx:1.19
 COPY --from=builder /app/apps/web/build/ /usr/share/nginx/html
