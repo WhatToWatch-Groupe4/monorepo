@@ -28,7 +28,12 @@ $ docker-compose -f docker-compose.yml -f gateway/docker-compose.yml up -d
 ...
 ```
 
-La Dockerization est prévu pour simplifier sa mise en place.
+api : http://api.wtw.localhost/api frontend : http://wtw.localhost #TODO
+
+Dashboard gateway : http://localhost:8080
+
+Grafana : http://grafana.localhost Prometheus : http://prometheus.localhost
+    credentials : admin / admin
 
 ## Run in production
 
