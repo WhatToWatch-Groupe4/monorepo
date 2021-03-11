@@ -1,7 +1,7 @@
 {
   "chromeWebSecurity": false,
   "env": {
-    "username": "SET YOUR USERNAME HERE",
-    "password": "SET YOUR PASSWORD HERE"
+    "username": "test@test.com",
+    "password": "test@test.com"
   }
 }
