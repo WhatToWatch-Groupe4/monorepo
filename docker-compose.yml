@@ -16,6 +16,59 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+    - backend
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DB_HOST: db
+      DB_USERNAME: wtw
+      DB_PASSWORD: wtw
+      DB_DATABASE: wtw
+      MOVIEDB_API_KEY: ${MOVIEDB_API_KEY}
+    networks:
+    - traefik-net
+    - backend
+    expose:
+      - 3000
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.api-wtw.rule=Host(`api.wtw.localhost`)"
+    depends_on:
+    - db
+    - redis
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    expose:
+      - 80
+    networks:
+    - traefik-net
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.wtw.rule=Host(`wtw.localhost`)"
+    environment:
+      REACT_APP_API_BASE_URL: http://api.wtw.localhost
+
+  redis:
+    image: redis
+    ports:
+    - "6379:6379"
+    volumes:
+    - "redis_data:/data" # Pas besoin d'ajouter d'argument à la command
+    networks:
+    - backend
 
 volumes:
   storage_db:
+  redis_data:
+
+networks:
+  backend:
+  traefik-net:
+    external: true 

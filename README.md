@@ -24,15 +24,17 @@ $ yarn install # Installe les dépendances
 $ yarn dev # Lancer les projets
 ...
 
+$ docker network create traefik-net
+...
 $ docker-compose -f docker-compose.yml -f gateway/docker-compose.yml up -d
 ...
 ```
 
-api : http://api.wtw.localhost/api frontend : http://wtw.localhost #TODO
+api : <http://api.wtw.localhost/api> frontend : <http://wtw.localhost>
 
-Dashboard gateway : http://localhost:8080
+Dashboard gateway : <http://localhost:8080>
 
-Grafana : http://grafana.localhost Prometheus : http://prometheus.localhost
+Grafana : <http://grafana.localhost> Prometheus : <http://prometheus.localhost>
     credentials : admin / admin
 
 ## Run in production

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ButtonView from './ButtonView';
 import Comments from './Comments';
 import WishButton from './WishButton';
+import { Configuration } from '../configuration';
 import FormComment from './FormComment';
 import { useKeycloak } from '@react-keycloak/web';
 
@@ -24,14 +25,14 @@ const MovieShow: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   const handleComments = async (): Promise<void> => {
-    const res = await fetch(`http://localhost:3000/comments?movie_id=${id}`).then((data) => data.json());
+    const res = await fetch(`${Configuration.apiBaseURL}/comments?movie_id=${id}`).then((data) => data.json());
     setComments(res as Comment[]);
   };
 
   useEffect(() => {
     void handleComments();
     const fetchData = async (): Promise<void> => {
-      const res = await fetch(`http://localhost:3000/movies/${id}`).then((data) => data.json());
+      const res = await fetch(`${Configuration.apiBaseURL}/movies/${id}`).then((data) => data.json());
       setMovie(res as MovieResponse);
     };
     void fetchData();
