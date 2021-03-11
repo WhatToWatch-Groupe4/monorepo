@@ -70,7 +70,9 @@ jobs:
         run: yarn install
       -
         name: Run Docker-Compose
-        run: docker-compose up -d db redis
+        run: |
+          docker network create traefik-net
+          docker-compose up -d db redis
       -
         name: Run Unit Test
         run: yarn workspace api test
