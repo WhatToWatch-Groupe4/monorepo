@@ -30,4 +30,12 @@ jobs:
         VALIDATE_JAVASCRIPT_STANDARD: false # We use prettier
         VALIDATE_TYPESCRIPT_STANDARD: false # We use prettier
         DEFAULT_BRANCH: main
+        OUTPUT_DETAILS: detailed
+        OUTPUT_FORMAT: tap
         # ACTIONS_RUNNER_DEBUG: true
+    - 
+      name: Upload Report as an artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: linter-report
+        path: "${{ github.workspace }}/super-linter.report/"
