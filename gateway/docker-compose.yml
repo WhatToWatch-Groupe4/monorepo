@@ -77,10 +77,6 @@ services:
 
   netdata:
     image: netdata/netdata
-    container_name: netdata
-    hostname: example.com # set to fqdn of host
-    ports:
-      - 19999:19999
     restart: unless-stopped
     cap_add:
       - SYS_PTRACE
