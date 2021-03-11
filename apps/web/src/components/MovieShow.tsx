@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ButtonView from './ButtonView';
 import Comments from './Comments';
 import WishButton from './WishButton';
+import { Configuration } from '../configuration';
 
 const MovieShow: FunctionComponent = () => {
   const { id } = useParams<{ id: string | undefined }>();
@@ -12,7 +13,7 @@ const MovieShow: FunctionComponent = () => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const res = await fetch(`http://localhost:3000/movies/${id}`).then((data) => data.json());
+      const res = await fetch(`${Configuration.apiBaseURL}/movies/${id}`).then((data) => data.json());
       setMovie(res as MovieResponse);
     };
     void fetchData();

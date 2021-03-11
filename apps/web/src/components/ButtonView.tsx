@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import binoculars from '../assets/icons/binoculars.png';
 import binocularsPrimary from '../assets/icons/binoculars-primary.png';
 import { useKeycloak } from '@react-keycloak/web';
+import { Configuration } from '../configuration';
 
 interface Props {
   movie: number;
@@ -20,7 +21,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
   }
 
   const getView = async (): Promise<void> => {
-    await fetch(`http://localhost:3000/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
+    await fetch(`${Configuration.apiBaseURL}/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
       .then((data) => data.json())
       .then((res) => setView(res.id))
       .catch(() => setView(null));
@@ -32,7 +33,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
         movie: movie,
         user_uuid: keycloak.tokenParsed?.sub,
       };
-      await fetch(`http://localhost:3000/views`, {
+      await fetch(`${Configuration.apiBaseURL}/views`, {
         method: 'POST',
         headers: new Headers({ 'content-type': 'application/json' }),
         body: JSON.stringify(body),
@@ -45,7 +46,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
 
   const removeView = async (): Promise<void> => {
     if (keycloak.authenticated) {
-      await fetch(`http://localhost:3000/views/${view}`, {
+      await fetch(`${Configuration.apiBaseURL}/views/${view}`, {
         method: 'DELETE',
       })
         .then((data) => data.json())

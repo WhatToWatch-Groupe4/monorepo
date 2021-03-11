@@ -1,6 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { Configuration } from '../configuration';
 
 interface Comment {
   id: number;
@@ -19,7 +20,7 @@ const Comments: FunctionComponent<Props> = ({ movieId }: Props) => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const res = await fetch(`http://localhost:3000/comments?movie_id=${movieId}`).then((data) => data.json());
+      const res = await fetch(`${Configuration.apiBaseURL}/comments?movie_id=${movieId}`).then((data) => data.json());
       setComments(res as Comment[]);
     };
     void fetchData();
