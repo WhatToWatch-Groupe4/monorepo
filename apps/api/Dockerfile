@@ -26,4 +26,4 @@ COPY libs libs
 
 RUN yarn workspace api run build
 
-CMD yarn workspace api run start
+CMD ["yarn", "workspace", "api", "run", "start"]
