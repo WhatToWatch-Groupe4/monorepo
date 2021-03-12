@@ -64,6 +64,18 @@ services:
     networks:
     - backend
 
+  exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    environment:
+      DATA_SOURCE_NAME: "postgresql://wtw:wtw@db:5432/wtw?sslmode=disable"
+      PG_EXPORTER_INCLUDE_DATABASES: "wtw"
+    networks:
+      - backend
+      - metrics
+    ports:
+    - "9187:9187"
+
+
 volumes:
   storage_db:
   redis_data:
@@ -72,4 +84,6 @@ networks:
   backend:
     external: true
   traefik-net:
-    external: true 
+    external: true
+  metrics:
+    external: true
