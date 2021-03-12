@@ -70,5 +70,6 @@ volumes:
 
 networks:
   backend:
+    external: true
   traefik-net:
     external: true 
