@@ -1,0 +1,7 @@
+notifiers:
+  - name: discord-notifier
+    type: discord
+    uid: s3fQ8L8Gk
+    frequency: 1m
+    settings:
+      url: https://discord.com/api/webhooks/819883542489726978/vX4KX9zH6j5G3eWGnEGTgSDMsMj1xaGtoslMo1qta5stWIudauWa_sFZ9XImVRbrqLci
