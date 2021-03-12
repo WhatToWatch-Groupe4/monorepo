@@ -47,3 +47,7 @@ scrape_configs:
       - 'gateway'
       type: 'A'
       port: 8080
+
+  - job_name: 'postgres_exporter'
+    static_configs:
+    - targets: [ 'exporter:9187' ]
