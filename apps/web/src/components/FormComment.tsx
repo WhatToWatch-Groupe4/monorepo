@@ -1,6 +1,7 @@
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import { KeycloakTokenParsed } from 'keycloak-js';
+import { Configuration } from '../configuration';
 
 interface TokenParsed extends KeycloakTokenParsed {
   preferred_username: string;
@@ -24,7 +25,7 @@ const FormComment: FunctionComponent<Props> = ({ movieId, refreshComments }: Pro
         username: token.preferred_username,
         movieId: movieId,
       };
-      await fetch(`http://localhost:3000/comments`, {
+      await fetch(`${Configuration.apiBaseURL}/comments`, {
         method: 'POST',
         headers: new Headers({ 'content-type': 'application/json' }),
         body: JSON.stringify(body),
