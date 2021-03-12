@@ -40,13 +40,17 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       -
-        name: Install dependencies
-        run: yarn install
-      -
         name: Run Docker-Compose
         run: |
-          docker network create traefik-net
+          docker network create traefik-net || true
+          docker network create backend || true
+          docker network create metrics || true
           docker-compose up -d db redis
+        env:
+          MOVIEDB_API_KEY: ${{ secrets.MOVIEDB_API_KEY }}
+      -
+        name: Install dependencies
+        run: yarn install
       -
         name: Run Unit Test
         run: yarn workspace api test
