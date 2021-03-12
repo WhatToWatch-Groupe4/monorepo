@@ -1,13 +1,14 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { Link } from 'react-router-dom';
+import { Configuration } from '../configuration';
 
 const MovieList: FunctionComponent = () => {
   const [movies, setMovie] = useState<Array<MovieResponse> | null>([]);
 
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const res = await fetch('http://localhost:3000/movies/').then((data) => data.json());
+      const res = await fetch(Configuration.apiBaseURL + '/movies/').then((data) => data.json());
       setMovie(res.results as Array<MovieResponse>);
     };
     void data();

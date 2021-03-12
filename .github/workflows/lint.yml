@@ -29,6 +29,8 @@ jobs:
         JAVASCRIPT_DEFAULT_STYLE: prettier
         VALIDATE_JAVASCRIPT_STANDARD: false # We use prettier
         VALIDATE_TYPESCRIPT_STANDARD: false # We use prettier
+        VALIDATE_KUBERNETES_KUBEVAL: false
+        VALIDATE_JSCPD: false
         DEFAULT_BRANCH: main
         OUTPUT_DETAILS: detailed
         OUTPUT_FORMAT: tap
