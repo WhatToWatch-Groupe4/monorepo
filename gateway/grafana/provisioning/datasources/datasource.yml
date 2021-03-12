@@ -48,3 +48,18 @@ datasources:
   version: 1
   # <bool> allow users to edit datasources from the UI.
   editable: true
+
+- name: PostgreSQL
+  type: postgres
+  url: db
+  database: wtw
+  user: wtw
+  secureJsonData:
+    password: "wtw"
+  jsonData:
+    sslmode: "disable" # disable/require/verify-ca/verify-full
+    maxOpenConns: 0         # Grafana v5.4+
+    maxIdleConns: 2         # Grafana v5.4+
+    connMaxLifetime: 14400  # Grafana v5.4+
+    postgresVersion: 12# 903=9.3, 904=9.4, 905=9.5, 906=9.6, 1000=10
+    timescaledb: false
