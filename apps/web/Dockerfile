@@ -22,4 +22,4 @@ RUN yarn workspace web run build
 
 FROM nginx:1.19
 COPY --from=builder /app/apps/web/build/ /usr/share/nginx/html
-RUN sed -i -e 's/index  index.html index.htm;/try_files $uri $uri\/ \/index.html;/g' /etc/nginx/conf.d/default.conf
+RUN sed -i -e "s/index  index.html index.htm;/try_files $uri $uri\/ \/index.html;/g" /etc/nginx/conf.d/default.conf
