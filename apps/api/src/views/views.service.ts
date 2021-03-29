@@ -18,7 +18,7 @@ export class ViewsService {
   create(user_uuid: string, movie: number): Promise<View> {
     return this.viewRepository.save({ user_uuid, movie });
   }
-  delete(id: number): Promise<DeleteResult> {
-    return this.viewRepository.delete(id);
+  delete(user_uuid: string, movie: number): Promise<DeleteResult> {
+    return this.viewRepository.delete({ user_uuid, movie });
   }
 }

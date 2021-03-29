@@ -2,14 +2,15 @@ import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/commo
 import { CommentsService } from './comments.service';
 import { Comment } from './entities/comment.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
+import { KeycloakTokenParsed, User } from '../auth/req-user.decorator';
 
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  create(@Body() createCommentDto: CreateCommentDto): Promise<Comment> {
-    return this.commentsService.create(createCommentDto);
+  create(@Body() createCommentDto: CreateCommentDto, @User() user: KeycloakTokenParsed): Promise<Comment> {
+    return this.commentsService.create(createCommentDto, user.sub, user.preferred_username);
   }
 
   @Get()
