@@ -9,9 +9,9 @@ const WishList: FunctionComponent = () => {
   const { initialized, keycloak } = useKeycloak();
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const wishList = await fetch(`${Configuration.apiBaseURL}/wishlist/${keycloak.tokenParsed?.sub}`).then((data) =>
-        data.json()
-      );
+      const wishList = await fetch(`${Configuration.apiBaseURL}/wishlist`, {
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+      }).then((data) => data.json());
       const res = [];
       for (const wishListElement of wishList) {
         const movieById = await fetch(`${Configuration.apiBaseURL}/movies/${wishListElement.movieId}`).then((data) =>

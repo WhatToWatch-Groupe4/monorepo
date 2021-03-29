@@ -9,9 +9,9 @@ const ViewList: FunctionComponent = () => {
   const { initialized, keycloak } = useKeycloak();
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const viewList = await fetch(
-        `${Configuration.apiBaseURL}/views/?user=${keycloak.tokenParsed?.sub}`
-      ).then((data) => data.json());
+      const viewList = await fetch(`${Configuration.apiBaseURL}/views`, {
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+      }).then((data) => data.json());
       const res = [];
       for (const viewListElement of viewList) {
         const movieById = await fetch(`${Configuration.apiBaseURL}/movies/${viewListElement.movie}`).then((data) =>

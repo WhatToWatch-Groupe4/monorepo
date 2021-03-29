@@ -11,7 +11,7 @@ import WishList from './components/WishList';
 
 const App: FunctionComponent = () => {
   return (
-    <ReactKeycloakProvider authClient={keycloak} onEvent={eventLogger} onTokens={tokenLogger}>
+    <ReactKeycloakProvider authClient={keycloak}>
       <Router>
         <div className="App">
           <SideMenu />
