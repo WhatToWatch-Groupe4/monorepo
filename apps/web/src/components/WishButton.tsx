@@ -31,7 +31,9 @@ const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
 
   /* jscpd:ignore-start */
   const checkWishList = async (): Promise<void> => {
-    await fetch(`${Configuration.apiBaseURL}/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`)
+    await fetch(`${Configuration.apiBaseURL}/wishlist/${movieId}`, {
+      headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+    })
       .then((data) => data.json())
       .then((res) => {
         setWish(res.userUuid);
@@ -45,8 +47,8 @@ const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
   const addToWishList = async (): Promise<void> => {
     await fetch(`${Configuration.apiBaseURL}/wishlist`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ userId: keycloak.tokenParsed?.sub, movieId: movieId }),
+      headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+      body: JSON.stringify({ movieId: movieId }),
     })
       .then((data) => data.json())
       .then((res) => {
@@ -60,9 +62,9 @@ const WishButton: FunctionComponent<Props> = ({ movieId }: Props) => {
   /* jscpd:ignore-end */
 
   const removeToWishList = async (): Promise<void> => {
-    await fetch(`${Configuration.apiBaseURL}/wishlist/${keycloak.tokenParsed?.sub}/${movieId}`, {
+    await fetch(`${Configuration.apiBaseURL}/wishlist/${movieId}`, {
       method: 'DELETE',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
     });
     setWish(null);
   };
