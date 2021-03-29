@@ -455,7 +455,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  count(id) AS \"movieId\"\nFROM view\nORDER BY 1",
+          "rawSql": "SELECT\n  count(*) AS \"movieId\"\nFROM wishlists\nORDER BY 1",
           "refId": "A",
           "select": [
             [
