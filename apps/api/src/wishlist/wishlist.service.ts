@@ -26,6 +26,7 @@ export class WishListService {
   }
 
   async getWishList(user_id: string): Promise<WishList[]> {
+    console.log(user_id);
     return this.wishListRepository.find({ userUuid: user_id });
   }
 }

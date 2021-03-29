@@ -10,8 +10,8 @@ export class ViewsController {
 
   // TODO Query user_uuid à supprimer et à récupérer depuis l'api
   @Get()
-  async findAll(@Query('user_uuid') user_uuid: string): Promise<View[]> {
-    return await this.viewsService.findAll(user_uuid);
+  async findAll(@Param('user') user: string): Promise<View[]> {
+    return await this.viewsService.findAll(user);
   }
 
   // TODO Param ser_uuid à supprimer et à récupérer depuis l'api

@@ -10,6 +10,7 @@ export class ViewsService {
     private viewRepository: Repository<View>,
   ) {}
   findAll(user_uuid: string): Promise<View[]> {
+    //TODO: faire en sorte que le where marche
     return this.viewRepository.find({ where: { user_uuid } });
   }
   findOne(user_uuid: string, movie: number): Promise<View | undefined> {

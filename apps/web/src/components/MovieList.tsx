@@ -9,6 +9,7 @@ const MovieList: FunctionComponent = () => {
   useEffect(() => {
     const data = async (): Promise<void> => {
       const res = await fetch(Configuration.apiBaseURL + '/movies/').then((data) => data.json());
+      console.log(res);
       setMovie(res.results as Array<MovieResponse>);
     };
     void data();
