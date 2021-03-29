@@ -37,7 +37,7 @@ describe('ViewController (e2e)', () => {
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
-      .get('/views')
+      .get('/views?user=' + firstView.user_uuid)
       .query({ user_uuid: firstView.user_uuid })
       .expect(200)
       .expect((res) => {

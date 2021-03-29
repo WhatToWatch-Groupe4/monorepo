@@ -9,9 +9,9 @@ const ViewList: FunctionComponent = () => {
   const { initialized, keycloak } = useKeycloak();
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const viewList = await fetch(`${Configuration.apiBaseURL}/views/${keycloak.tokenParsed?.sub}`).then((data) =>
-        data.json()
-      );
+      const viewList = await fetch(
+        `${Configuration.apiBaseURL}/views/?user=${keycloak.tokenParsed?.sub}`
+      ).then((data) => data.json());
       const res = [];
       for (const viewListElement of viewList) {
         const movieById = await fetch(`${Configuration.apiBaseURL}/movies/${viewListElement.movie}`).then((data) =>
@@ -30,7 +30,7 @@ const ViewList: FunctionComponent = () => {
 
   return (
     <div className="container mx-auto ">
-      <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES</h1>
+      <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES déjà vus</h1>
       <div id="movie-list" className="flex flex-wrap">
         {movies.map((movie) => (
           <Link key={movie.id} to={'/movies/' + movie.id}>

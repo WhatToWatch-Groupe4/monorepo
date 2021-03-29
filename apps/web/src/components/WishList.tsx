@@ -31,7 +31,7 @@ const WishList: FunctionComponent = () => {
   return (
     <div className="container mx-auto ">
       <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">
-        TOUS LES FILMS / SÉRIES qeue j'ai envie de voir
+        TOUS LES FILMS / SÉRIES que j'ai envie de voir
       </h1>
       <div id="movie-list" className="flex flex-wrap">
         {movies.map((movie) => (
