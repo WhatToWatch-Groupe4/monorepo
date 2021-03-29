@@ -55,7 +55,7 @@ const MovieShow: FunctionComponent = () => {
       <h2 className="font-medium text-2xl mt-10 mb-8">Synopsis</h2>
       <p className="text-gray-400">{movie.overview}</p>
       <ButtonView movie={+id} />
-      <Comments commentsList={comments} />
+      <Comments commentsList={comments} refreshComments={handleComments} />
       {initialized && keycloak.authenticated && <FormComment movieId={+id} refreshComments={handleComments} />}
       <WishButton movieId={+id} />
     </div>

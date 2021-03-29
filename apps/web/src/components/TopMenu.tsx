@@ -7,6 +7,7 @@ import { KeycloakTokenParsed } from 'keycloak-js';
 
 interface TokenParsed extends KeycloakTokenParsed {
   preferred_username: string;
+  groups: Array<string>;
 }
 
 const TopMenu: FunctionComponent = () => {
@@ -18,6 +19,7 @@ const TopMenu: FunctionComponent = () => {
 
   if (keycloak.authenticated) {
     const token = keycloak.tokenParsed as TokenParsed;
+    const isAdmin = token.groups.includes('admin');
     return (
       <div id="top-menu" className="w-full bg-black-13 fixed flex justify-between relative align-center">
         <div></div>
@@ -25,9 +27,11 @@ const TopMenu: FunctionComponent = () => {
           <img src={user} alt="logo" className="rounded-full w-16 mx-4" />
           <div className="text-left">
             <p className="name text-white font-bold">{token.preferred_username}</p>
-            <p className="px-8 rounded-xl text-white uppercase font-bold inline-block text-sm bg-gradient-to-r from-primary to-secondary">
-              admin
-            </p>
+            {isAdmin && (
+              <p className="px-8 rounded-xl text-white uppercase font-bold inline-block text-sm bg-gradient-to-r from-primary to-secondary">
+                admin
+              </p>
+            )}
             <Login />
           </div>
         </div>

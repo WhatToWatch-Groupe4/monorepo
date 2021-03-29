@@ -1,6 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
@@ -25,7 +25,7 @@ export class CommentsService {
     throw new NotImplementedException({ id, updateCommentDto });
   }
 
-  remove(id: number): void {
-    throw new NotImplementedException({ id });
+  remove(id: number): Promise<DeleteResult> {
+    return this.commentRepository.delete(id);
   }
 }

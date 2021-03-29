@@ -1,6 +1,10 @@
 import { FunctionComponent } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { useKeycloak } from '@react-keycloak/web';
+import { KeycloakTokenParsed } from 'keycloak-js';
+import deleteWhite from '../assets/icons/delete-primary.png';
+import { Configuration } from '../configuration';
 
 interface Comment {
   id: number;
@@ -12,9 +16,37 @@ interface Comment {
 
 interface Props {
   commentsList: Array<Comment>;
+  refreshComments: () => void;
 }
 
-const Comments: FunctionComponent<Props> = ({ commentsList }: Props) => {
+interface TokenParsed extends KeycloakTokenParsed {
+  groups: Array<string>;
+}
+
+const Comments: FunctionComponent<Props> = ({ commentsList, refreshComments }: Props) => {
+  const { keycloak, initialized } = useKeycloak();
+
+  if (!initialized) {
+    return null;
+  }
+
+  const token = keycloak.tokenParsed as TokenParsed;
+  const isAdmin = keycloak.authenticated ? token.groups.includes('admin') : false;
+
+  const deleteComment = async (id: number): Promise<void> => {
+    if (keycloak.authenticated && isAdmin) {
+      await fetch(`${Configuration.apiBaseURL}/comments/${id}`, {
+        method: 'DELETE',
+        headers: new Headers({ 'content-type': 'application/json' }),
+      })
+        .then((data) => data.json())
+        .then(() => {
+          refreshComments();
+        })
+        .catch(() => console.error('Error: delete Comment'));
+    }
+  };
+
   return (
     <div className="text-white">
       <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({commentsList.length})</h2>
@@ -34,6 +66,13 @@ const Comments: FunctionComponent<Props> = ({ commentsList }: Props) => {
             </div>
             <p>{c.message}</p>
           </div>
+          {isAdmin && (
+            <img
+              src={deleteWhite}
+              className="h-8 ml-8 cursor-pointer hover:opacity-50"
+              onClick={() => deleteComment(c.id)}
+            />
+          )}
         </div>
       ))}
     </div>
