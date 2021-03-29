@@ -61,7 +61,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
         headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
       })
         .then((res) => {
-          if (res.status === 204) {
+          if (res.status === 204 || res.status === 200) {
             setView(false);
           }
         })
@@ -73,11 +73,7 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
   };
 
   useEffect(() => {
-    console.log({ view });
-  }, [view]);
-
-  useEffect(() => {
-    if (initialized) {
+    if (initialized && keycloak.authenticated) {
       void getView();
     }
   }, [initialized]);
