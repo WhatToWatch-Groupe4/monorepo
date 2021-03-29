@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from './entities/comment.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -29,7 +29,11 @@ export class CommentsController {
   // }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  remove(@Param('id') id: string, @User() user: KeycloakTokenParsed) {
+    if (user.groups.includes('admin')) {
+      return this.commentsService.remove(+id);
+    } else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 }

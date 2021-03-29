@@ -37,7 +37,7 @@ const Comments: FunctionComponent<Props> = ({ commentsList, refreshComments }: P
     if (keycloak.authenticated && isAdmin) {
       await fetch(`${Configuration.apiBaseURL}/comments/${id}`, {
         method: 'DELETE',
-        headers: new Headers({ 'content-type': 'application/json' }),
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
       })
         .then((data) => data.json())
         .then(() => {
