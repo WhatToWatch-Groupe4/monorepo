@@ -10,7 +10,7 @@ const Login: FunctionComponent = () => {
 
   if (keycloak.authenticated) {
     return (
-      <a id="logout-btn" className="App-link" href={keycloak.createLogoutUrl()}>
+      <a id="logout-btn" className="App-link text-white" href={keycloak.createLogoutUrl()}>
         Logout
       </a>
     );
