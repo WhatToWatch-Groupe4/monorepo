@@ -6,10 +6,4 @@ export class CreateCommentDto {
 
   @IsNumber()
   movieId: number;
-
-  @IsString()
-  userUUID: string;
-
-  @IsString()
-  username: string;
 }
