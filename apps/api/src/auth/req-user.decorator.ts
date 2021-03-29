@@ -12,6 +12,7 @@ export interface KeycloakTokenParsed {
   resource_access?: KeycloakResourceAccess;
   email: string;
   groups: string[];
+  preferred_username: string;
 }
 
 export interface KeycloakResourceAccess {
