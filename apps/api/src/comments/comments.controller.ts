@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from './entities/comment.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { KeycloakTokenParsed, User } from 'src/auth/req-user.decorator';
+import { KeycloakTokenParsed, User } from '../auth/req-user.decorator';
 
 @Controller('comments')
 export class CommentsController {

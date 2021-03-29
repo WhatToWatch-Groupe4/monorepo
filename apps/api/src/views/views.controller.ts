@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post
 import { ViewsService } from './views.service';
 import { View } from './views.entity';
 import { ViewDto } from './view.dto';
-import { KeycloakTokenParsed, User } from 'src/auth/req-user.decorator';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { KeycloakTokenParsed, User } from '../auth/req-user.decorator';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('views')
 export class ViewsController {
