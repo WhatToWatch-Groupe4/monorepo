@@ -9,8 +9,8 @@ interface Props {
 }
 
 const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
-  const [view, setView] = useState<number | null>(null);
-  const { keycloak } = useKeycloak();
+  const [view, setView] = useState<boolean>(false);
+  const { keycloak, initialized } = useKeycloak();
 
   function toggleView(): void {
     if (!view) {
@@ -21,45 +21,66 @@ const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
   }
 
   const getView = async (): Promise<void> => {
-    await fetch(`${Configuration.apiBaseURL}/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
-      .then((data) => data.json())
-      .then((res) => setView(res.id))
-      .catch(() => setView(null));
+    await fetch(`${Configuration.apiBaseURL}/views/${movie}`, {
+      headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setView(true);
+        }
+      })
+      .catch(() => setView(false));
   };
 
   const addView = async (): Promise<void> => {
     if (keycloak.authenticated) {
       const body = {
         movie: movie,
-        user_uuid: keycloak.tokenParsed?.sub,
       };
       await fetch(`${Configuration.apiBaseURL}/views`, {
         method: 'POST',
-        headers: new Headers({ 'content-type': 'application/json' }),
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
         body: JSON.stringify(body),
       })
-        .then((data) => data.json())
-        .then((res) => setView(res.id))
-        .catch(() => console.error('Error: add view'));
+        .then((res) => {
+          if (res.status === 200 || res.status === 201) {
+            setView(true);
+          }
+        })
+        .catch((e) => {
+          console.error('Error: add view');
+          throw e;
+        });
     }
   };
 
   const removeView = async (): Promise<void> => {
     if (keycloak.authenticated) {
-      await fetch(`${Configuration.apiBaseURL}/views/${view}`, {
+      await fetch(`${Configuration.apiBaseURL}/views/${movie}`, {
         method: 'DELETE',
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
       })
-        .then((data) => data.json())
-        .then(() => setView(null))
-        .catch(() => console.error('Error: Remove view'));
+        .then((res) => {
+          if (res.status === 204) {
+            setView(false);
+          }
+        })
+        .catch((e) => {
+          console.error('Error: Remove view');
+          throw e;
+        });
     }
   };
 
   useEffect(() => {
-    if (keycloak.authenticated) {
+    console.log({ view });
+  }, [view]);
+
+  useEffect(() => {
+    if (initialized) {
       void getView();
     }
-  }, [keycloak.authenticated]);
+  }, [initialized]);
 
   if (!view) {
     return (

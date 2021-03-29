@@ -1,32 +1,42 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import { View } from './views.entity';
-import { DeleteResult } from 'typeorm';
 import { ViewDto } from './view.dto';
+import { KeycloakTokenParsed, User } from 'src/auth/req-user.decorator';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('views')
 export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
-  // TODO Query user_uuid à supprimer et à récupérer depuis l'api
-  @Get('')
-  async findAll(@Query('user') user: string): Promise<View[]> {
-    return await this.viewsService.findAll(user);
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async findAll(@User() user: KeycloakTokenParsed): Promise<View[]> {
+    return await this.viewsService.findAll(user.sub);
   }
 
-  // TODO Param ser_uuid à supprimer et à récupérer depuis l'api
-  @Get(':movie')
-  async findOne(@Param('movie') movie: number, @Query('user_uuid') user_uuid: string): Promise<View | undefined> {
-    return await this.viewsService.findOne(user_uuid, movie);
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  async findOne(@Param('id') movie: number, @User() user: KeycloakTokenParsed): Promise<View> {
+    const view = await this.viewsService.findOne(user.sub, movie);
+
+    if (view === undefined) {
+      throw new NotFoundException();
+    }
+
+    return view;
   }
 
   @Post()
-  async create(@Body() viewDto: ViewDto): Promise<View> {
-    return await this.viewsService.create(viewDto.user_uuid, viewDto.movie);
+  @UseGuards(JwtAuthGuard)
+  async create(@Body() viewDto: ViewDto, @User() user: KeycloakTokenParsed): Promise<View> {
+    return await this.viewsService.create(user.sub, viewDto.movie);
   }
 
+  @HttpCode(204)
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<DeleteResult> {
-    return await this.viewsService.delete(id);
+  @UseGuards(JwtAuthGuard)
+  async delete(@Param('id') id: number, @User() user: KeycloakTokenParsed): Promise<void> {
+    await this.viewsService.delete(user.sub, id);
   }
 }
