@@ -9,13 +9,12 @@ const WishList: FunctionComponent = () => {
   const { initialized, keycloak } = useKeycloak();
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const wishList = await fetch(
-        `${Configuration.apiBaseURL}/wishlist/?user=${keycloak.tokenParsed?.sub}`
-      ).then((data) => data.json());
+      const wishList = await fetch(`${Configuration.apiBaseURL}/wishlist/${keycloak.tokenParsed?.sub}`).then((data) =>
+        data.json()
+      );
       const res = [];
-      console.log(wishList);
       for (const wishListElement of wishList) {
-        const movieById = await fetch(`${Configuration.apiBaseURL}/movies/${wishListElement.movie}`).then((data) =>
+        const movieById = await fetch(`${Configuration.apiBaseURL}/movies/${wishListElement.movieId}`).then((data) =>
           data.json()
         );
         res.push(movieById);
@@ -32,12 +31,12 @@ const WishList: FunctionComponent = () => {
   return (
     <div className="container mx-auto ">
       <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">
-        TOUS LES FILMS / SÉRIES QUE J'AI ENVIE DE VOIR
+        TOUS LES FILMS / SÉRIES qeue j'ai envie de voir
       </h1>
-      <div id="movie-list" className="grid md:grid-flow-col grid-cols-6 grid-rows-3 gap-0">
+      <div id="movie-list" className="flex flex-wrap">
         {movies.map((movie) => (
           <Link key={movie.id} to={'/movies/' + movie.id}>
-            <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
+            <div className="flex flex-col justify-center items-center mx-auto w-48 my-8 px-4">
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}

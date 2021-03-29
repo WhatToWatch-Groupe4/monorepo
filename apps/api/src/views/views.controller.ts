@@ -9,7 +9,7 @@ export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
   // TODO Query user_uuid à supprimer et à récupérer depuis l'api
-  @Get()
+  @Get(':user')
   async findAll(@Param('user') user: string): Promise<View[]> {
     return await this.viewsService.findAll(user);
   }
