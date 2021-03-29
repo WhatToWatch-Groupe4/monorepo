@@ -16,16 +16,12 @@ export class JwtAuthGuard implements CanActivate {
 
     const token = splittedAuthorization[1];
 
-    console.log({ token });
-
     const client = new JwksClient({
       jwksUri: 'https://accounts.agravelot.eu/auth/realms/wtw/protocol/openid-connect/certs',
     });
 
     function getKey(header, callback) {
       client.getSigningKey(header.kid, function (err, key) {
-        console.log({ err, key });
-
         const signingKey = key.getPublicKey();
         callback(null, signingKey);
       });
@@ -33,16 +29,12 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       verify(token, getKey, function (err, decoded) {
-        console.log({ err, decoded }); // bar
+        return;
       });
+      return true;
     } catch (e) {
       console.error(e);
-
-      throw e;
+      return false;
     }
-
-    console.log('verif');
-
-    return true;
   }
 }

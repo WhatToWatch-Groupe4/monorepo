@@ -9,14 +9,6 @@ import SideMenu from './components/SideMenu';
 import TopMenu from './components/TopMenu';
 import WishList from './components/WishList';
 
-const eventLogger = (event: unknown, error: unknown): void => {
-  console.log('onKeycloakEvent', event, error);
-};
-
-const tokenLogger = (tokens: unknown): void => {
-  console.log('onKeycloakTokens', tokens);
-};
-
 const App: FunctionComponent = () => {
   return (
     <ReactKeycloakProvider authClient={keycloak} onEvent={eventLogger} onTokens={tokenLogger}>
