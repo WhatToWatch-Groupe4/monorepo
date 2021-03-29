@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { MovieResponse } from 'moviedb-promise/dist/request-types';
 import { Link } from 'react-router-dom';
+import { Configuration } from '../configuration';
 
-function MovieList() {
+const MovieList: FunctionComponent = () => {
   const [movies, setMovie] = useState<Array<MovieResponse> | null>([]);
 
   useEffect(() => {
     const data = async (): Promise<void> => {
-      const res = await fetch('http://localhost:3000/movies/').then((data) => data.json());
+      const res = await fetch(Configuration.apiBaseURL + '/movies/').then((data) => data.json());
       setMovie(res.results as Array<MovieResponse>);
     };
     void data();
@@ -18,10 +19,10 @@ function MovieList() {
   return (
     <div className="container mx-auto ">
       <h1 className="text-4xl text-white uppercase font-bold mb-4 pt-3">TOUS LES FILMS / SÉRIES</h1>
-      <div className="grid md:grid-flow-col grid-cols-6 grid-rows-3 gap-0">
+      <div id="movie-list" className="flex flex-wrap">
         {movies.map((movie) => (
           <Link key={movie.id} to={'/movies/' + movie.id}>
-            <div className="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
+            <div className="flex flex-col justify-center items-center mx-auto w-48 my-8 px-4">
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
@@ -41,6 +42,6 @@ function MovieList() {
       </div>
     </div>
   );
-}
+};
 
 export default MovieList;

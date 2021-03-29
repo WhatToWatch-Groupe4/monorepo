@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import binoculars from '../assets/icons/binoculars.png';
 import binocularsPrimary from '../assets/icons/binoculars-primary.png';
 import { useKeycloak } from '@react-keycloak/web';
+import { Configuration } from '../configuration';
 
 interface Props {
   movie: number;
 }
 
-function ButtonView({ movie }: Props) {
-  const [view, setView] = useState<number | null>(null);
-  const { keycloak } = useKeycloak();
+const ButtonView: FunctionComponent<Props> = ({ movie }: Props) => {
+  const [view, setView] = useState<boolean>(false);
+  const { keycloak, initialized } = useKeycloak();
 
   function toggleView(): void {
     if (!view) {
@@ -20,50 +21,67 @@ function ButtonView({ movie }: Props) {
   }
 
   const getView = async (): Promise<void> => {
-    await fetch(`http://localhost:3000/views/${movie}?user_uuid=${keycloak.tokenParsed?.sub}`)
-      .then((data) => data.json())
-      .then((res) => setView(res.id))
-      .catch(() => setView(null));
+    await fetch(`${Configuration.apiBaseURL}/views/${movie}`, {
+      headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setView(true);
+        }
+      })
+      .catch(() => setView(false));
   };
 
   const addView = async (): Promise<void> => {
     if (keycloak.authenticated) {
       const body = {
         movie: movie,
-        user_uuid: keycloak.tokenParsed?.sub,
       };
-      await fetch(`http://localhost:3000/views`, {
+      await fetch(`${Configuration.apiBaseURL}/views`, {
         method: 'POST',
-        headers: new Headers({ 'content-type': 'application/json' }),
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
         body: JSON.stringify(body),
       })
-        .then((data) => data.json())
-        .then((res) => setView(res.id))
-        .catch(() => console.error('Error: add view'));
+        .then((res) => {
+          if (res.status === 200 || res.status === 201) {
+            setView(true);
+          }
+        })
+        .catch((e) => {
+          console.error('Error: add view');
+          throw e;
+        });
     }
   };
 
   const removeView = async (): Promise<void> => {
     if (keycloak.authenticated) {
-      await fetch(`http://localhost:3000/views/${view}`, {
+      await fetch(`${Configuration.apiBaseURL}/views/${movie}`, {
         method: 'DELETE',
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
       })
-        .then((data) => data.json())
-        .then(() => setView(null))
-        .catch(() => console.error('Error: Remove view'));
+        .then((res) => {
+          if (res.status === 204 || res.status === 200) {
+            setView(false);
+          }
+        })
+        .catch((e) => {
+          console.error('Error: Remove view');
+          throw e;
+        });
     }
   };
 
   useEffect(() => {
-    if (keycloak.authenticated) {
+    if (initialized && keycloak.authenticated) {
       void getView();
     }
-  }, [keycloak.authenticated]);
+  }, [initialized]);
 
   if (!view) {
     return (
       <button
-        className="border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none disabled:opacity-50"
+        className="btn-movie-not-view border-primary border-4 cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none disabled:opacity-50"
         onClick={toggleView}
         disabled={!keycloak.authenticated}
       >
@@ -74,12 +92,12 @@ function ButtonView({ movie }: Props) {
 
   return (
     <button
-      className="bg-primary border-4 border-primary cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
+      className="btn-movie-view bg-primary border-4 border-primary cursor-pointer rounded-xl hover:shadow-xl hover:opacity-90 focus:outline-none"
       onClick={toggleView}
     >
       <img src={binoculars} alt="logo" className="px-24 py-4 inline w-11/12" />
     </button>
   );
-}
+};
 
 export default ButtonView;

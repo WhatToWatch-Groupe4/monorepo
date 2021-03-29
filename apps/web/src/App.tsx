@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import { FunctionComponent } from 'react';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './keycloak';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -10,24 +9,16 @@ import SideMenu from './components/SideMenu';
 import TopMenu from './components/TopMenu';
 import WishList from './components/WishList';
 
-const eventLogger = (event: unknown, error: unknown) => {
-  console.log('onKeycloakEvent', event, error);
-};
-
-const tokenLogger = (tokens: unknown) => {
-  console.log('onKeycloakTokens', tokens);
-};
-
-function App() {
+const App: FunctionComponent = () => {
   return (
-    <ReactKeycloakProvider authClient={keycloak} onEvent={eventLogger} onTokens={tokenLogger}>
+    <ReactKeycloakProvider authClient={keycloak}>
       <Router>
         <div className="App">
           <SideMenu />
           <div id="Main-layout" className="ml-32">
             <TopMenu />
           </div>
-          <div className="container mx-auto">
+          <div className="container mx-auto pl-32">
             <Switch>
               <Route path="/movies/:id">
                 <MovieShow />
@@ -47,6 +38,6 @@ function App() {
       </Router>
     </ReactKeycloakProvider>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,130 @@
+name: web
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  pull_request:
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          # - 12
+          - 14
+        architecture:
+          - x64
+    name: test with node ${{ matrix.node_version }} - ${{ matrix.architecture }}
+    steps:
+    - 
+      name: Install cypress dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libgdm1 libgdm-dev libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+    - 
+      name: Checkout
+      uses: actions/checkout@v2
+    - 
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node_version }}
+        architecture: ${{ matrix.architecture }}
+    - 
+      name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+    - 
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    - 
+      name: Install dependencies
+      run: yarn install
+    - 
+      name: Install dependencies
+      run: yarn global add serve
+    - 
+      name: Cypress run
+      uses: cypress-io/github-action@v2
+      with:
+        record: false
+        headless: true
+        # tag: node-${{ matrix.node }}
+        # install: false
+        # start: yarn workspace web run dev
+        build: yarn workspace web build
+        start: yarn exec serve -s apps/web/build -n -l 3001
+        wait-on: 'http://localhost:3001'
+        # project: ./apps/web
+        config-file: cypress.json
+        project: apps/web
+      env:
+        PORT: 3001
+        REACT_APP_KEYCLOAK_URL: https://accounts.agravelot.eu/auth
+        REACT_APP_KEYCLOAK_REALM: wtw
+        REACT_APP_KEYCLOAK_CLIENT_ID: web
+
+    - 
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: apps/web/cypress/screenshots
+    # Test run video was always captured, so this action uses "always()" condition
+    - 
+      uses: actions/upload-artifact@v1
+      if: always()
+      with:
+        name: cypress-videos
+        path: apps/web/cypress/videos
+
+  build:
+    # runs-on: self-hosted
+    runs-on: ubuntu-latest
+    steps:
+    - 
+      name: Checkout
+      uses: actions/checkout@v2
+    - 
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Login to Gitlab
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v1 
+      with:
+        registry: registry.gitlab.com
+        username: ${{ secrets.CI_REGISTRY_USER }}
+        password: ${{ secrets.CI_REGISTRY_PASSWORD }}
+    -
+        name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: registry.gitlab.com/nevax/wtw/wtw-web # list of Docker images to use as base name for tags
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}
+    -
+      name: Build and push base
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./apps/web/Dockerfile
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.docker_meta.outputs.tags }}
+        labels: ${{ steps.docker_meta.outputs.labels }}
+        cache-from: type=registry,ref=registry.gitlab.com/nevax/wtw/wtw-web:latest
+        cache-to: type=inline
+        build-args: |
+            "REACT_APP_KEYCLOAK_REALM=${{ secrets.REACT_APP_KEYCLOAK_REALM }}"
+            "REACT_APP_KEYCLOAK_URL=${{ secrets.REACT_APP_KEYCLOAK_URL }}"
+            "REACT_APP_KEYCLOAK_CLIENT_ID=${{ secrets.REACT_APP_KEYCLOAK_CLIENT_ID }}"
+
+

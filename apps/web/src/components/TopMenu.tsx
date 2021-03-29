@@ -1,15 +1,16 @@
 import user from '../assets/user.jpg';
-import React from 'react';
+import { FunctionComponent } from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import Login from './Login';
 import Register from './Register';
-import { KeycloakResourceAccess, KeycloakRoles, KeycloakTokenParsed } from 'keycloak-js';
+import { KeycloakTokenParsed } from 'keycloak-js';
 
 interface TokenParsed extends KeycloakTokenParsed {
   preferred_username: string;
+  groups: Array<string>;
 }
 
-function TopMenu() {
+const TopMenu: FunctionComponent = () => {
   const { keycloak, initialized } = useKeycloak();
 
   if (!initialized) {
@@ -18,16 +19,19 @@ function TopMenu() {
 
   if (keycloak.authenticated) {
     const token = keycloak.tokenParsed as TokenParsed;
+    const isAdmin = token.groups.includes('admin');
     return (
-      <div className="w-full bg-black-13 fixed flex justify-between relative align-center">
+      <div id="top-menu" className="w-full bg-black-13 fixed flex justify-between relative align-center">
         <div></div>
-        <div className="flex py-6 items-center px-32">
+        <div id="user-log" className="flex py-6 items-center px-32">
           <img src={user} alt="logo" className="rounded-full w-16 mx-4" />
           <div className="text-left">
-            <p className="text-white font-bold">{token.preferred_username}</p>
-            <p className="px-8 rounded-xl text-white uppercase font-bold inline-block text-sm bg-gradient-to-r from-primary to-secondary">
-              admin
-            </p>
+            <p className="name text-white font-bold">{token.preferred_username}</p>
+            {isAdmin && (
+              <p className="px-8 rounded-xl text-white uppercase font-bold inline-block text-sm bg-gradient-to-r from-primary to-secondary">
+                admin
+              </p>
+            )}
             <Login />
           </div>
         </div>
@@ -36,11 +40,11 @@ function TopMenu() {
   }
 
   return (
-    <div className="w-full bg-black-13 fixed flex justify-between relative align-center min-h-112">
+    <div id="top-menu" className="w-full bg-black-13 fixed flex justify-between relative align-center min-h-112">
       <Login />
       <Register />
     </div>
   );
-}
+};
 
 export default TopMenu;

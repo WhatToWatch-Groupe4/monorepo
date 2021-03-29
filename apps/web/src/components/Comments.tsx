@@ -1,6 +1,10 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { useKeycloak } from '@react-keycloak/web';
+import { KeycloakTokenParsed } from 'keycloak-js';
+import deleteWhite from '../assets/icons/delete-primary.png';
+import { Configuration } from '../configuration';
 
 interface Comment {
   id: number;
@@ -11,24 +15,42 @@ interface Comment {
 }
 
 interface Props {
-  movieId: number;
+  commentsList: Array<Comment>;
+  refreshComments: () => void;
 }
 
-function Comments({ movieId }: Props) {
-  const [comments, setComments] = useState<Comment[]>([]);
+interface TokenParsed extends KeycloakTokenParsed {
+  groups: Array<string>;
+}
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const res = await fetch(`http://localhost:3000/comments?movie_id=${movieId}`).then((data) => data.json());
-      setComments(res as Comment[]);
-    };
-    void fetchData();
-  }, []);
+const Comments: FunctionComponent<Props> = ({ commentsList, refreshComments }: Props) => {
+  const { keycloak, initialized } = useKeycloak();
+
+  if (!initialized) {
+    return null;
+  }
+
+  const token = keycloak.tokenParsed as TokenParsed;
+  const isAdmin = keycloak.authenticated ? token.groups.includes('admin') : false;
+
+  const deleteComment = async (id: number): Promise<void> => {
+    if (keycloak.authenticated && isAdmin) {
+      await fetch(`${Configuration.apiBaseURL}/comments/${id}`, {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${keycloak.token}` },
+      })
+        .then((data) => data.json())
+        .then(() => {
+          refreshComments();
+        })
+        .catch(() => console.error('Error: delete Comment'));
+    }
+  };
 
   return (
     <div className="text-white">
-      <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({comments.length})</h2>
-      {comments.map((c) => (
+      <h2 className="font-medium text-2xl mt-10 mb-8">Comments ({commentsList.length})</h2>
+      {commentsList.map((c) => (
         <div className="flex text-left">
           <img
             className="rounded-full"
@@ -44,10 +66,17 @@ function Comments({ movieId }: Props) {
             </div>
             <p>{c.message}</p>
           </div>
+          {isAdmin && (
+            <img
+              src={deleteWhite}
+              className="h-8 ml-8 cursor-pointer hover:opacity-50"
+              onClick={() => deleteComment(c.id)}
+            />
+          )}
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Comments;
